@@ -17,6 +17,7 @@ public enum SudokuNumber {
 public class SquareController : MonoBehaviour {
 	public SudokuNumber number;
 	public bool cleared;
+	public bool hint;
 
 	private SpriteRenderer sr;
 	private Sprite[] numberSprites;
@@ -24,8 +25,10 @@ public class SquareController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		sr = GetComponent<SpriteRenderer> ();
-		numberSprites = new Sprite[9];
-		LoadNumberSprites ();
+		if (numberSprites == null) {
+			numberSprites = new Sprite[9];
+			LoadNumberSprites ();
+		}
 	}
 
 	// Update is called once per frame
