@@ -6,7 +6,7 @@ public class GameController : MonoBehaviour {
 
 	public GameObject squarePrefab;
 	public GameObject board;
-	public Camera camera;
+	public Camera cam;
 	public float squareSeparationX;
 	public float squareSeparationY;
 
@@ -34,7 +34,7 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetMouseButtonDown (0)) {
-			Vector3 mousePosition = camera.ScreenToWorldPoint (Input.mousePosition);
+			Vector3 mousePosition = cam.ScreenToWorldPoint (Input.mousePosition);
 			RaycastHit2D hit = Physics2D.Raycast (new Vector2(mousePosition.x, mousePosition.y), Vector2.zero);
 			SquareController hitSquareController = hit.collider.gameObject.GetComponent<SquareController>();
 			if (!hitSquareController.hint) {
