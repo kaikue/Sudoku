@@ -1535,15 +1535,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1551048792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4072ffee652e2494cbd0bc8acd3105ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 930c9fa8fc0ee4e21b75f4aa5600dc04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   squarePrefab: {fileID: 1357554970}
   board: {fileID: 1100694246}
   winText: {fileID: 467806174}
-  camera: {fileID: 1571091853}
-  squareSeparationX: 0.665
-  squareSeparationY: 0.665
+  cam: {fileID: 1571091853}
+  squareSeparationX: 0.668
+  squareSeparationY: 0.668
 --- !u!4 &1551048794
 Transform:
   m_ObjectHideFlags: 0

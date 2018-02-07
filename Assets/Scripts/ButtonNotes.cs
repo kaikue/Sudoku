@@ -8,12 +8,12 @@ public class ButtonNotes : MonoBehaviour {
 	private readonly static Color COLOR_NOT_SELECTED = new Color (1.0f, 1.0f, 1.0f, 1.0f);
 
 	private bool selected;
-	private GameController gameController;
+	private SudokuController gameController;
 	private Image imageBackground;
 
 	// Use this for initialization
 	void Start () {
-		gameController = GameObject.FindGameObjectWithTag ("SudokuController").GetComponent<GameController>();
+		gameController = GameObject.FindGameObjectWithTag ("SudokuController").GetComponent<SudokuController>();
 		imageBackground = transform.GetChild(0).gameObject.GetComponent<Image> ();
 
 		GetComponent<Button> ().onClick.AddListener (ButtonOnClick);

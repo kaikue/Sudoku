@@ -17,8 +17,7 @@ public enum SudokuNumber {
 public class SquareController : MonoBehaviour {
 	private readonly static Color COLOR_NUMBER_HINT = new Color (1.0f, 1.0f, 1.0f, 1.0f);
 	private readonly static Color COLOR_NUMBER_NOT_HINT = new Color (1.0f, 1.0f, 1.0f, 0.75f);
-	private readonly static Color COLOR_BACKGROUND_HIGHLIGHTED = new Color (0.5f, 0.5f, 0.5f, 1.0f);
-	private readonly static Color COLOR_BACKGROUND_NOT_HIGHLIGHTED = new Color (0.0f, 0.0f, 0.0f, 0.0f);
+	private readonly static Color COLOR_BACKGROUND_NOT_CONFLICTING = new Color (1.0f, 1.0f, 1.0f, 1.0f);
 	private readonly static Color COLOR_BACKGROUND_HARD_CONFLICTING = new Color (1.0f, 0.0f, 0.0f, 1.0f);
 	private readonly static Color COLOR_BACKGROUND_SOFT_CONFLICTING = new Color (1.0f, 1.0f, 0.0f, 1.0f);
 
@@ -83,17 +82,21 @@ public class SquareController : MonoBehaviour {
 			srNumber.color = COLOR_NUMBER_NOT_HINT;	
 		}
 
-		if (highlighted) {
-			srBackground.color = COLOR_BACKGROUND_HIGHLIGHTED;
-		} else {
-			srBackground.color = COLOR_BACKGROUND_NOT_HIGHLIGHTED;
-		}
-
 		if (hardConflicting) {
 			srBackground.color = COLOR_BACKGROUND_HARD_CONFLICTING;
 		} else if (softConflicting) {
 			srBackground.color = COLOR_BACKGROUND_SOFT_CONFLICTING;
+		} else {
+			srBackground.color = COLOR_BACKGROUND_NOT_CONFLICTING;
 		}
+
+		if (highlighted) {
+			srBackground.color = highlightColor(srBackground.color);
+		}
+	}
+
+	private static Color highlightColor(Color c) {
+		return new Color (c.r * 0.5f, c.g * 0.5f, c.b * 0.5f, c.a);
 	}
 
 	private void LoadNumberSprites() {

@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class GameController : MonoBehaviour {
+public class SudokuController : MonoBehaviour {
 
 	public GameObject squarePrefab;
 	public GameObject board;
@@ -32,7 +33,7 @@ public class GameController : MonoBehaviour {
 		InstantiateSquares ();
 		InitializeSquares ();
 
-		winText.SetActive (false);
+		winText.GetComponent<Text> ().text = "";
 	}
 	
 	// Update is called once per frame
@@ -98,7 +99,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		if (won) {
-  			winText.SetActive (false);
+			winText.GetComponent<Text> ().text = "YOU WIN";
 		}
 	}
 

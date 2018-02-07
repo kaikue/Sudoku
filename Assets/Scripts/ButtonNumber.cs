@@ -6,11 +6,11 @@ using UnityEngine.UI;
 public class ButtonNumber : MonoBehaviour {
 
 	public SudokuNumber number;
-	private GameController gameController;
+	private SudokuController gameController;
 
 	// Use this for initialization
 	void Start () {
-		gameController = GameObject.FindGameObjectWithTag ("SudokuController").GetComponent<GameController>();
+		gameController = GameObject.FindGameObjectWithTag ("SudokuController").GetComponent<SudokuController>();
 
 		transform.GetChild(0).gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite> ("number_" + number.ToString () + "_temp");
 		GetComponent<Button> ().onClick.AddListener (ButtonOnClick);

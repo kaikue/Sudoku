@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonErase : MonoBehaviour {
-	private GameController gameController;
+	private SudokuController gameController;
 	// Use this for initialization
 	void Start () {
-		gameController = GameObject.FindGameObjectWithTag ("SudokuController").GetComponent<GameController>();
+		gameController = GameObject.FindGameObjectWithTag ("SudokuController").GetComponent<SudokuController>();
 		GetComponent<Button> ().onClick.AddListener (ButtonOnClick);
 	}
 
