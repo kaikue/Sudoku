@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Parent : MonoBehaviour {
 
+	public static GameObject parent;
+
 	// Use this for initialization
 	void Start () {
-		DontDestroyOnLoad (gameObject);
+		DontDestroyOnLoad (transform.gameObject);
+		parent = transform.gameObject;
 	}
 	
 }
