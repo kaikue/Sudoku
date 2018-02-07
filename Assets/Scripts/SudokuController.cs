@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour {
 	public GameObject squarePrefab;
 	public GameObject board;
 	public GameObject winText;
-	public Camera camera;
+	public Camera cam;
 	public float squareSeparationX;
 	public float squareSeparationY;
 
