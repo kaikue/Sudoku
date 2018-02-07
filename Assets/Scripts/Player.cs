@@ -10,13 +10,16 @@ public class Player : MonoBehaviour {
 	private float SPEED = 6.0f;
 	private float SHOT_SPEED = 10.0f;
 
+	private BattleController bc;
 	private Rigidbody2D rb;
 	private SpriteRenderer sr;
 	private bool shotQueued = false;
 	private Vector2 facing = new Vector2(0, -1);
+	private float health = 100;
 
 	void Start()
 	{
+		bc = GameObject.Find("BattleController").GetComponent<BattleController>();
 		rb = GetComponent<Rigidbody2D>();
 		sr = GetComponent<SpriteRenderer>();
 	}
@@ -95,5 +98,24 @@ public class Player : MonoBehaviour {
 		shot.GetComponent<Rigidbody2D>().velocity = shotVel;
 		//Shot = shot.GetComponent<Shot>();
 		//Cough.cougher = this;
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		TowerShot t = collision.gameObject.GetComponent<TowerShot>();
+		if (t != null)
+		{
+			Damage(t.DAMAGE);
+			Destroy(collision.gameObject);
+		}
+	}
+
+	private void Damage(float damage)
+	{
+		health -= damage;
+		if (health <= 0)
+		{
+			bc.Lose();
+		}
 	}
 }

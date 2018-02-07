@@ -5,13 +5,23 @@ using UnityEngine;
 public class BattleController : MonoBehaviour {
 
 	public GameObject player;
-
-	void Start () {
-		
-	}
 	
-	// Update is called once per frame
-	void Update () {
-		
+	public void DestroyTower(GameObject tower)
+	{
+		Destroy(tower);
+		if (GameObject.FindGameObjectsWithTag("Tower").Length == 0)
+		{
+			Win();
+		}
+	}
+
+	public void Win()
+	{
+		print("You win!");
+	}
+
+	public void Lose()
+	{
+		print("You lose!");
 	}
 }
