@@ -7,6 +7,11 @@ public class BattleController : MonoBehaviour {
 
 	public GameObject player;
 
+	private GameObject parent;
+
+	void Start() {
+	}
+
 	public void DestroyTower(GameObject tower)
 	{
 		Destroy(tower);

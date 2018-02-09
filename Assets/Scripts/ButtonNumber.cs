@@ -12,7 +12,7 @@ public class ButtonNumber : MonoBehaviour {
 	void Start () {
 		gameController = GameObject.FindGameObjectWithTag ("SudokuController").GetComponent<SudokuController>();
 
-		transform.GetChild(0).gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite> ("number_" + number.ToString () + "_temp");
+		transform.GetChild(0).gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite> ("ink_numbers/" + number.ToString ());
 		GetComponent<Button> ().onClick.AddListener (ButtonOnClick);
 	}
 

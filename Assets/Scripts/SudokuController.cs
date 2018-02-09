@@ -68,6 +68,28 @@ public class SudokuController : MonoBehaviour {
 			}
 		}
 
+		if (Input.anyKeyDown) {
+			if (Input.GetKeyDown (KeyCode.Alpha1)) {
+				SetNumber (SudokuNumber.ONE);
+			} else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+				SetNumber (SudokuNumber.TWO);
+			} else if (Input.GetKeyDown(KeyCode.Alpha3)) {
+				SetNumber (SudokuNumber.THREE);
+			} else if (Input.GetKeyDown(KeyCode.Alpha4)) {
+				SetNumber (SudokuNumber.FOUR);
+			} else if (Input.GetKeyDown(KeyCode.Alpha5)) {
+				SetNumber (SudokuNumber.FIVE);
+			} else if (Input.GetKeyDown(KeyCode.Alpha6)) {
+				SetNumber (SudokuNumber.SIX);
+			} else if (Input.GetKeyDown(KeyCode.Alpha7)) {
+				SetNumber (SudokuNumber.SEVEN);
+			} else if (Input.GetKeyDown(KeyCode.Alpha8)) {
+				SetNumber (SudokuNumber.EIGHT);
+			} else if (Input.GetKeyDown(KeyCode.Alpha9)) {
+				SetNumber (SudokuNumber.NINE);
+			}
+		}
+
 		CheckForWin ();
 	}
 

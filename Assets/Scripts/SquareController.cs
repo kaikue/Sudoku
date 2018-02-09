@@ -22,6 +22,9 @@ public class SquareController : MonoBehaviour {
 	private readonly static Color COLOR_BACKGROUND_SOFT_CONFLICTING = new Color (1.0f, 1.0f, 0.0f, 1.0f);
 
 	// State variables
+	public AudioSource audioFail;
+	public AudioSource audioPencil;
+	public AudioSource audioNote;
 	public SudokuNumber number;
 	public bool[] notes;
 	public bool cleared;
@@ -34,9 +37,14 @@ public class SquareController : MonoBehaviour {
 	// Fixed by GameController
 	public int index;
 
+	private bool hardConflictingLastFrame;
+	private bool clearedLastFrame;
+	private int notesCountLastFrame;
+
 	private SpriteRenderer srNumber;
 	private SpriteRenderer srBackground;
-	private Sprite[] numberSprites;
+	private Sprite[] inkNumberSprites;
+	private Sprite[] pencilNumberSprites;
 
 	// Use this for initialization
 	void Start () {
@@ -44,14 +52,20 @@ public class SquareController : MonoBehaviour {
 
 		srNumber = GetComponent<SpriteRenderer> ();
 		srBackground = transform.GetChild (0).gameObject.GetComponent<SpriteRenderer> ();
-		if (numberSprites == null) {
-			numberSprites = new Sprite[9];
-			LoadNumberSprites ();
-		}
+		inkNumberSprites = new Sprite[9];
+		pencilNumberSprites = new Sprite[9];
+		LoadNumberSprites ();
 	}
 
 	// Update is called once per frame
 	void LateUpdate () {
+		int notesCount = 0;
+		for (int idx = 0; idx < 9; idx++) {
+			if (notes [idx]) {
+				notesCount++;
+			}
+		}
+
 		if (noted) {
 			for (int idx = 0; idx < 9; idx++) {
 				if (notes [idx]) {
@@ -59,6 +73,11 @@ public class SquareController : MonoBehaviour {
 				} else {
 					transform.GetChild (idx + 1).gameObject.GetComponent<SpriteRenderer> ().enabled = false;						
 				}
+			}
+
+			if (notesCount > notesCountLastFrame) {
+				audioNote.Play();
+				print ("note");
 			}
 
 			srNumber.sprite = null;
@@ -69,20 +88,28 @@ public class SquareController : MonoBehaviour {
 
 			srNumber.sprite = null;
 		} else {
+			if (clearedLastFrame && !hardConflicting) {
+				audioPencil.Play ();
+				print ("pencil");
+			}
+
 			for (int idx = 0; idx < 9; idx++) {
 				transform.GetChild (idx + 1).gameObject.GetComponent<SpriteRenderer> ().enabled = false;						
 			}
 
-			srNumber.sprite = numberSprites [(int)number];
-		}
-
-		if (hint) {
-			srNumber.color = COLOR_NUMBER_HINT;	
-		} else {
-			srNumber.color = COLOR_NUMBER_NOT_HINT;	
+			if (hint) {
+				srNumber.sprite = inkNumberSprites [(int)number];
+			} else {
+				srNumber.sprite = pencilNumberSprites [(int)number];
+			}
 		}
 
 		if (hardConflicting) {
+			if (!hardConflictingLastFrame) {
+				audioFail.Play ();
+				print ("fail");
+			}
+
 			srBackground.color = COLOR_BACKGROUND_HARD_CONFLICTING;
 		} else if (softConflicting) {
 			srBackground.color = COLOR_BACKGROUND_SOFT_CONFLICTING;
@@ -93,16 +120,21 @@ public class SquareController : MonoBehaviour {
 		if (highlighted) {
 			srBackground.color = highlightColor(srBackground.color);
 		}
+
+		hardConflictingLastFrame = hardConflicting;
+		clearedLastFrame = cleared;
+		notesCountLastFrame = notesCount;
+
 	}
 
 	private static Color highlightColor(Color c) {
-		return new Color (c.r * 0.5f, c.g * 0.5f, c.b * 0.5f, c.a);
+		return new Color (c.r * 0.5f, c.g * 0.5f, c.b, c.a);
 	}
 
 	private void LoadNumberSprites() {
 		for (SudokuNumber number = SudokuNumber.ONE; number <= SudokuNumber.NINE; number++) {
-			string path = "number_" + number.ToString () + "_temp";
-			numberSprites [(int)number] = Resources.Load<Sprite> (path);
+			pencilNumberSprites [(int)number] = Resources.Load<Sprite> ("pencil_numbers/" + number.ToString ());
+			inkNumberSprites [(int)number] = Resources.Load<Sprite> ("ink_numbers/" + number.ToString ());
 		}
 	}
 }
