@@ -152,14 +152,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4511517844224912, guid: b730da28a47d1b14a98c7155a2c75107, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4511517844224912, guid: b730da28a47d1b14a98c7155a2c75107, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 1163702708484546, guid: b730da28a47d1b14a98c7155a2c75107, type: 2}
       propertyPath: m_Name
       value: TowerOne
