@@ -7,7 +7,7 @@ public class Tower : MonoBehaviour {
 	public GameObject ShotPrefab;
 
 	private const int SHOT_TIME = 20;
-	private const float SHOT_SPEED = 6.0f;
+	private const float SHOT_SPEED = 0.1f;
 
 	private BattleController bc;
 	private GameObject player;
@@ -46,11 +46,11 @@ public class Tower : MonoBehaviour {
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		Shot s = collision.gameObject.GetComponent<Shot>();
+		Attack s = collision.gameObject.GetComponent<Attack>();
 		if (s != null)
 		{
 			Damage(s.DAMAGE);
-			Destroy(collision.gameObject);
+			//set invincible frames
 		}
 	}
 	

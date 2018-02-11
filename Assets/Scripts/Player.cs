@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-	public GameObject ShotPrefab;
+	public GameObject AttackPrefab;
 
 	private string[] DIRECTIONS = { "Down", "Left", "Up", "Right" };
 	private float SPEED = 6.0f;
-	private float SHOT_SPEED = 10.0f;
+	private float ATTACK_DISTANCE = 0.5f;
 
 	private BattleController bc;
 	private Rigidbody2D rb;
 	private SpriteRenderer sr;
-	private bool shotQueued = false;
+	private Attack MyAttack = null;
+	private bool attackQueued = false;
 	private Vector2 facing = new Vector2(0, -1);
 	private float health = 100;
 
@@ -29,7 +30,7 @@ public class Player : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Space) ||
 				Input.GetKeyDown(KeyCode.JoystickButton0))
 		{
-			shotQueued = true;
+			attackQueued = true;
 		}
 	}
 
@@ -77,27 +78,33 @@ public class Player : MonoBehaviour {
 
 		rb.velocity = vel;
 
-		if (shotQueued)
+		if (attackQueued)
 		{
-			shotQueued = false;
-			CreateShot();
+			attackQueued = false;
+			if (MyAttack == null)
+			{
+				CreateAttack();
+			}
+		}
+
+		if (MyAttack != null)
+		{
+			MyAttack.gameObject.transform.position = transform.position + MyAttack.Offset;
 		}
 	}
 
-	private void CreateShot()
+	private void CreateAttack()
 	{
-		Vector2 shotVel = facing.normalized;
-		shotVel *= SHOT_SPEED;
-		shotVel += rb.velocity;
+		Vector3 attackOffset = facing.normalized;
+		attackOffset *= ATTACK_DISTANCE;
 		
 		//PlaySound("player_shoot");
 
-		GameObject shot = Instantiate(ShotPrefab);
-		shot.transform.position = gameObject.transform.position;
-		//shot.transform.parent = gameObject.transform;
-		shot.GetComponent<Rigidbody2D>().velocity = shotVel;
-		//Shot = shot.GetComponent<Shot>();
-		//Cough.cougher = this;
+		GameObject attack = Instantiate(AttackPrefab);
+		attack.transform.position = gameObject.transform.position + attackOffset;
+		attack.transform.parent = gameObject.transform;
+		MyAttack = attack.GetComponent<Attack>();
+		MyAttack.Offset = attackOffset;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
