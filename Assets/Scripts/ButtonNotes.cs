@@ -10,11 +10,13 @@ public class ButtonNotes : MonoBehaviour {
 	private bool selected;
 	private SudokuController gameController;
 	private Image imageBackground;
+	private CursorImage cursorImage;
 
 	// Use this for initialization
 	void Start () {
 		gameController = GameObject.FindGameObjectWithTag ("SudokuController").GetComponent<SudokuController>();
 		imageBackground = transform.GetChild(0).gameObject.GetComponent<Image> ();
+		cursorImage = transform.GetChild(0).gameObject.GetComponent<CursorImage> ();
 
 		GetComponent<Button> ().onClick.AddListener (ButtonOnClick);
 	}
@@ -22,6 +24,7 @@ public class ButtonNotes : MonoBehaviour {
 	void ButtonOnClick() {
 		selected = !selected;
 		gameController.SetNotes (selected);
+		cursorImage.selected = selected;
 
 		if (selected) {
 			imageBackground.color = COLOR_SELECTED;	
