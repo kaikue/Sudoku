@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour {
 
-	public float DAMAGE = 10;
+	public float Damage = 1.0f;
+	public Hurtable.Faction Faction;
 	public Vector3 Offset;
-	private float LIFESPAN = 0.5f;
+	private const float LIFESPAN = 0.3f;
 
 	void Awake()
 	{

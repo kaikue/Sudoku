@@ -2,27 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : Hurtable {
 
 	public GameObject AttackPrefab;
 
 	private string[] DIRECTIONS = { "Down", "Left", "Up", "Right" };
-	private float SPEED = 6.0f;
-	private float ATTACK_DISTANCE = 0.5f;
+	private const float SPEED = 6.0f;
+	private const float ATTACK_DISTANCE = 0.5f;
+	private const float MAX_HEALTH = 3.0f;
 
 	private BattleController bc;
 	private Rigidbody2D rb;
-	private SpriteRenderer sr;
 	private Attack MyAttack = null;
 	private bool attackQueued = false;
 	private Vector2 facing = new Vector2(0, -1);
-	private float health = 100;
 
 	void Start()
 	{
 		bc = GameObject.Find("BattleController").GetComponent<BattleController>();
 		rb = GetComponent<Rigidbody2D>();
 		sr = GetComponent<SpriteRenderer>();
+		faction = Faction.GOOD;
+		health = MAX_HEALTH;
 	}
 	
 	void Update()
@@ -105,24 +106,11 @@ public class Player : MonoBehaviour {
 		attack.transform.parent = gameObject.transform;
 		MyAttack = attack.GetComponent<Attack>();
 		MyAttack.Offset = attackOffset;
+		MyAttack.Faction = faction;
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision)
+	protected override void Die()
 	{
-		TowerShot t = collision.gameObject.GetComponent<TowerShot>();
-		if (t != null)
-		{
-			Damage(t.DAMAGE);
-			Destroy(collision.gameObject);
-		}
-	}
-
-	private void Damage(float damage)
-	{
-		health -= damage;
-		if (health <= 0)
-		{
-			bc.Lose();
-		}
+		bc.Lose();
 	}
 }

@@ -156,6 +156,11 @@ Prefab:
       propertyPath: m_Name
       value: TowerOne
       objectReference: {fileID: 0}
+    - target: {fileID: 212549902989265744, guid: b730da28a47d1b14a98c7155a2c75107,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b730da28a47d1b14a98c7155a2c75107, type: 2}
   m_IsPrefabParent: 0
@@ -270,24 +275,6 @@ Prefab:
     - target: {fileID: 4589051174542382, guid: 08f02ea650df96a4980a115e0acb5b0c, type: 2}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4589051174542382, guid: 08f02ea650df96a4980a115e0acb5b0c, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4589051174542382, guid: 08f02ea650df96a4980a115e0acb5b0c, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 61881297398220746, guid: 08f02ea650df96a4980a115e0acb5b0c,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 16.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 61881297398220746, guid: 08f02ea650df96a4980a115e0acb5b0c,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 16.22
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 08f02ea650df96a4980a115e0acb5b0c, type: 2}
