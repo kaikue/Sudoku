@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class BattleController : MonoBehaviour {
 
 	public GameObject Player;
+	public GameObject Pause;
 	public GameObject Tower1;
 	public GameObject Tower2;
 	public GameObject Tower3;
@@ -19,6 +20,7 @@ public class BattleController : MonoBehaviour {
 	private GameObject[] towers;
 
 	private SudokuController sudoku;
+	private bool paused = false;
 
 	private void Start()
 	{
@@ -45,6 +47,23 @@ public class BattleController : MonoBehaviour {
 			if (!square.notes[i])
 			{
 				Destroy(towers[i]);
+			}
+		}
+	}
+
+	public void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			paused = !paused;
+			Pause.SetActive(paused);
+			if (paused)
+			{
+				Time.timeScale = 0;
+			}
+			else
+			{
+				Time.timeScale = 1;
 			}
 		}
 	}
