@@ -498,7 +498,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1813329588}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &846097516
 Prefab:
@@ -901,7 +901,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1813329588}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1242034499
 Prefab:
@@ -1619,7 +1619,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4961394514550524, guid: 62837bb1101e9479ab115ab73fbf88aa, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1619265933142984, guid: 62837bb1101e9479ab115ab73fbf88aa, type: 2}
       propertyPath: m_Name
@@ -1905,7 +1905,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squarePrefab: {fileID: 1357554970}
-  battlePrefab: {fileID: 0}
+  battlePrefab: {fileID: 1441719820051190, guid: 7fedcd9d7dbda8b4c95bea706cbdfa53,
+    type: 2}
   board: {fileID: 1100694246}
   winText: {fileID: 467806174}
   parent: {fileID: 1813329586}
@@ -2005,8 +2006,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1813329588}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1642660295
 Prefab:
@@ -2403,7 +2404,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1813329588}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1813329586
 GameObject:
@@ -2444,13 +2445,12 @@ Transform:
   m_Children:
   - {fileID: 1551048794}
   - {fileID: 1460728553}
-  - {fileID: 1571091854}
   - {fileID: 1100694248}
   - {fileID: 1357554969}
   - {fileID: 739006957}
   - {fileID: 1777124585}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2048947766
 Prefab:

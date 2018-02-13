@@ -21,8 +21,8 @@ public class BattleController : MonoBehaviour {
 
 	private SudokuController sudoku;
 	private bool paused = false;
-
-	private void Start()
+	
+	public void InitializeGame(SquareController square, SudokuController sudoku)
 	{
 		GameObject[] towers = {
 			Tower1, 
@@ -37,10 +37,7 @@ public class BattleController : MonoBehaviour {
 		};
 
 		this.towers = towers;
-	}
 
-	public void InitializeGame(SquareController square, SudokuController sudoku)
-	{
 		this.sudoku = sudoku;
 		for (int i = 0; i < 9; i++)
 		{
@@ -80,14 +77,14 @@ public class BattleController : MonoBehaviour {
 
 	public void Win()
 	{
-		sudoku.gameObject.SetActive(true);
+		sudoku.gameObject.transform.parent.gameObject.SetActive(true);
 		sudoku.SetCorrectNumber();
 		sudoku.ReturnToNormal(this);
 	}
 
 	public void Lose()
 	{
-		sudoku.gameObject.SetActive(true);
+		sudoku.gameObject.transform.parent.gameObject.SetActive(true);
 		sudoku.SetLostBattle();
 		sudoku.ReturnToNormal(this);
 	}

@@ -96,7 +96,8 @@ public class SudokuController : MonoBehaviour {
 	private void Battle()
 	{
 		GameObject battle = Instantiate(battlePrefab);
-		battle.GetComponent<BattleController>().InitializeGame(selectedSquare, this);
+		BattleController bc = battle.GetComponentInChildren<BattleController>();
+		bc.InitializeGame(selectedSquare, this);
 		//TODO: set battle.position and scale
 		//TODO: zoom in on battle
 		parent.SetActive(false);
@@ -105,7 +106,7 @@ public class SudokuController : MonoBehaviour {
 	public void ReturnToNormal(BattleController battle)
 	{
 		//TODO: zoom out
-		Destroy(battle.gameObject);
+		Destroy(battle.gameObject.transform.parent.gameObject);
 	}
 
 	public void SetNumber(SudokuNumber number) {
