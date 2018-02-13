@@ -145,6 +145,10 @@ public class SudokuController : MonoBehaviour {
 		//TODO: can't battle on selected square anymore
 	}
 	
+	public void ExitGame() {
+		//TODO: Implement
+	}
+
 	private void CheckForWin() {
 		CheckForConflicts ();
 		bool won = true;
