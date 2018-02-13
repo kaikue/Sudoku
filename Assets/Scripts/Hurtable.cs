@@ -13,7 +13,7 @@ public abstract class Hurtable : MonoBehaviour {
 	public Material NormalMaterial;
 	public Material HurtMaterial;
 
-	protected float health;
+	protected int health;
 	protected Faction faction;
 	protected SpriteRenderer sr;
 
@@ -35,7 +35,7 @@ public abstract class Hurtable : MonoBehaviour {
 		}
 	}
 
-	private void Damage(float damage)
+	private void Damage(int damage)
 	{
 		if (!hurt)
 		{

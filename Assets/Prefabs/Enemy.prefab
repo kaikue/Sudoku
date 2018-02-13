@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 212125740487455142}
   - component: {fileID: 61991873852208526}
   - component: {fileID: 50672711450590582}
-  - component: {fileID: 114585682476344058}
+  - component: {fileID: 114597149030354474}
   m_Layer: 0
-  m_Name: TowerShot
+  m_Name: Enemy
   m_TagString: TowerShot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1625561685425432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -72,10 +72,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -1.1365936, y: 0.35517883}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -86,9 +86,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.07, y: 0.07}
+  m_Size: {x: 10.82118, y: 11.247419}
   m_EdgeRadius: 0
---- !u!114 &114585682476344058
+--- !u!114 &114597149030354474
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -96,10 +96,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1625561685425432}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0058a114cfc0d214e94121365660cdc2, type: 3}
+  m_Script: {fileID: 11500000, guid: 272fa4f54bad4fd49b0ac8dffdaf5441, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DAMAGE: 10
+  NormalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  HurtMaterial: {fileID: 2100000, guid: 2cf05aa2819ba4140ac6c11c54eb2c6c, type: 2}
 --- !u!212 &212125740487455142
 SpriteRenderer:
   m_ObjectHideFlags: 1

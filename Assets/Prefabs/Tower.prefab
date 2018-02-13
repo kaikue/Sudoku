@@ -80,7 +80,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NormalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   HurtMaterial: {fileID: 2100000, guid: 2cf05aa2819ba4140ac6c11c54eb2c6c, type: 2}
-  ShotPrefab: {fileID: 1625561685425432, guid: b84248a94ee6e81469afe8591876d770, type: 2}
+  EnemyPrefab: {fileID: 1625561685425432, guid: b84248a94ee6e81469afe8591876d770,
+    type: 2}
 --- !u!212 &212549902989265744
 SpriteRenderer:
   m_ObjectHideFlags: 1

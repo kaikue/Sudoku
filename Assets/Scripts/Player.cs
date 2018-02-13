@@ -9,7 +9,7 @@ public class Player : Hurtable {
 	private string[] DIRECTIONS = { "Down", "Left", "Up", "Right" };
 	private const float SPEED = 6.0f;
 	private const float ATTACK_DISTANCE = 0.5f;
-	private const float MAX_HEALTH = 3.0f;
+	private const int MAX_HEALTH = 3;
 
 	private BattleController bc;
 	private Rigidbody2D rb;

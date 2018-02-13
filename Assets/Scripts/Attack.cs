@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour {
 
-	public float Damage = 1.0f;
+	public int Damage = 1;
 	public Hurtable.Faction Faction;
 	public Vector3 Offset;
 	private const float LIFESPAN = 0.3f;
