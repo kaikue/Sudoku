@@ -19,15 +19,20 @@ public class Tower : Hurtable {
 		bc = GameObject.Find("BattleController").GetComponent<BattleController>();
 		faction = Faction.BAD;
 		health = MAX_HEALTH;
+
 		StartCoroutine(SpawnTimer());
 	}
 	
 	private IEnumerator SpawnTimer()
 	{
+		int myNum = 0;
+		int.TryParse(gameObject.name.Substring(5), out myNum);
+		float startTime = (SPAWN_TIME * myNum) / 9;
+		yield return new WaitForSeconds(startTime);
 		while (true)
 		{
-			yield return new WaitForSeconds(SPAWN_TIME);
 			SpawnEnemy();
+			yield return new WaitForSeconds(SPAWN_TIME);
 		}
 	}
 
