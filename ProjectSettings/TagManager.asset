@@ -7,6 +7,7 @@ TagManager:
   - Tower
   - TowerShot
   - Shot
+  - SudokuController
   layers:
   - Default
   - TransparentFX
@@ -52,4 +53,7 @@ TagManager:
     locked: 0
   - name: Numbers
     uniqueID: 1860952473
+    locked: 0
+  - name: UI
+    uniqueID: 902659411
     locked: 0
