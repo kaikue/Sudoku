@@ -21,7 +21,7 @@ public abstract class Hurtable : MonoBehaviour {
 
 	private const float HURT_TIME = 0.4f;
 
-	void Start()
+	protected virtual void Start()
 	{
 		sr = GetComponent<SpriteRenderer>();
 	}

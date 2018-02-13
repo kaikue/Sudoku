@@ -17,8 +17,9 @@ public class Player : Hurtable {
 	private bool attackQueued = false;
 	private Vector2 facing = new Vector2(0, -1);
 
-	void Start()
+	protected override void Start()
 	{
+		base.Start();
 		bc = GameObject.Find("BattleController").GetComponent<BattleController>();
 		rb = GetComponent<Rigidbody2D>();
 		sr = GetComponent<SpriteRenderer>();

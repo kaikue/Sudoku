@@ -16,8 +16,9 @@ public class Tower : Hurtable {
 	
 	private int shotTimer = SHOT_TIME;
 
-	void Start()
+	protected override void Start()
 	{
+		base.Start();
 		bc = GameObject.Find("BattleController").GetComponent<BattleController>();
 		player = GameObject.Find("Player");
 		faction = Faction.BAD;
