@@ -68,8 +68,7 @@ public class BattleController : MonoBehaviour {
 	public void DestroyTower(GameObject tower)
 	{
 		Destroy(tower);
-		//TODO: Fix
-		if (true || GameObject.FindGameObjectsWithTag("Tower").Length == 0)
+		if (GameObject.FindGameObjectsWithTag("Tower").Length <= 1) //doesn't get decremented just yet
 		{
 			Win();
 		}

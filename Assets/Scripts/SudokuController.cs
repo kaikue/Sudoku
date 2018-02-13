@@ -110,6 +110,8 @@ public class SudokuController : MonoBehaviour {
 	}
 
 	public void SetNumber(SudokuNumber number) {
+		if (selectedSquare == null) return;
+
 		if (selectedSquare.noted) {
 			selectedSquare.notes [(int)number] = true;
 		} else {
