@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class SudokuController : MonoBehaviour {
 
 	public GameObject squarePrefab;
+	public GameObject battlePrefab;
 	public GameObject board;
 	public GameObject winText;
 	public GameObject parent;
@@ -55,8 +56,7 @@ public class SudokuController : MonoBehaviour {
 					}
 
 					if (selectedSquare == newSelectedSquare && selectedSquare.noted) {
-						SceneManager.LoadScene ("Battle", LoadSceneMode.Additive);
-						parent.SetActive (false);
+						Battle();
 					}
 
 					selectedSquare = newSelectedSquare;
@@ -93,6 +93,21 @@ public class SudokuController : MonoBehaviour {
 		CheckForWin ();
 	}
 
+	private void Battle()
+	{
+		GameObject battle = Instantiate(battlePrefab);
+		battle.GetComponent<BattleController>().InitializeGame(selectedSquare, this);
+		//TODO: set battle.position and scale
+		//TODO: zoom in on battle
+		parent.SetActive(false);
+	}
+
+	public void ReturnToNormal(BattleController battle)
+	{
+		//TODO: zoom out
+		Destroy(battle.gameObject);
+	}
+
 	public void SetNumber(SudokuNumber number) {
 		if (selectedSquare.noted) {
 			selectedSquare.notes [(int)number] = true;
@@ -125,6 +140,11 @@ public class SudokuController : MonoBehaviour {
 		SetNumber ((SudokuNumber)((-1 * testNumbers [selectedSquare.index]) - 1));
 	}
 
+	public void SetLostBattle()
+	{
+		//TODO: can't battle on selected square anymore
+	}
+	
 	private void CheckForWin() {
 		CheckForConflicts ();
 		bool won = true;

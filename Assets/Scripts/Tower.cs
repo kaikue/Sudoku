@@ -35,6 +35,7 @@ public class Tower : Hurtable {
 	{
 		GameObject enemy = Instantiate(EnemyPrefab);
 		enemy.transform.position = gameObject.transform.position + Vector3.down * ENEMY_DISTANCE;
+		enemy.transform.parent = gameObject.transform.parent; //so it'll get destroyed if the battle is
 	}
 	
 	protected override void Die()

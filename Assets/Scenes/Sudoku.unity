@@ -1707,6 +1707,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squarePrefab: {fileID: 1357554970}
+  battlePrefab: {fileID: 1441719820051190, guid: 7fedcd9d7dbda8b4c95bea706cbdfa53,
+    type: 2}
   board: {fileID: 1100694246}
   winText: {fileID: 467806174}
   parent: {fileID: 1813329586}
