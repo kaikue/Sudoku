@@ -7,7 +7,7 @@ public class Player : Hurtable {
 	public GameObject AttackPrefab;
 
 	private string[] DIRECTIONS = { "Down", "Left", "Up", "Right" };
-	private const float SPEED = 6.0f;
+	private const float SPEED = 3.0f;
 	private const float ATTACK_DISTANCE = 0.5f;
 	private const int MAX_HEALTH = 3;
 
@@ -108,6 +108,7 @@ public class Player : Hurtable {
 		MyAttack = attack.GetComponent<Attack>();
 		MyAttack.Offset = attackOffset;
 		MyAttack.Faction = faction;
+		MyAttack.StartDelayDestroy(0.15f);
 	}
 
 	protected override void Die()

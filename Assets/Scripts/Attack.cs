@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Attack : MonoBehaviour {
-
+	
 	public int Damage = 1;
 	public Hurtable.Faction Faction;
 	public Vector3 Offset;
-	private const float LIFESPAN = 0.3f;
-
-	void Awake()
+	
+	public void StartDelayDestroy(float lifespan)
 	{
-		StartCoroutine(DelayDestroy());
+		StartCoroutine(DelayDestroy(lifespan));
 	}
 
-	private IEnumerator DelayDestroy()
+	private IEnumerator DelayDestroy(float lifespan)
 	{
-		yield return new WaitForSeconds(LIFESPAN);
+		yield return new WaitForSeconds(lifespan);
 		Destroy(gameObject);
 	}
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Enemy : Hurtable {
 
 	private const int MAX_HEALTH = 1;
+	private const float SPEED = 2.0f;
 	private Rigidbody2D rb;
 	private GameObject player;
 
@@ -20,8 +21,11 @@ public class Enemy : Hurtable {
 	
 	void FixedUpdate()
 	{
-		//move towards player...
-		rb.velocity = Vector2.down;
+		Vector2 pos = rb.position;
+		Vector2 playerPos = player.transform.position;
+		Vector2 posDiff = playerPos - pos;
+		pos += posDiff.normalized * SPEED * Time.fixedDeltaTime;
+		rb.MovePosition(pos);
 	}
 
 	protected override void Die()
