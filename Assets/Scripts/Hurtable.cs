@@ -13,8 +13,8 @@ public abstract class Hurtable : MonoBehaviour {
 	public Material NormalMaterial;
 	public Material HurtMaterial;
 
+	public Faction faction;
 	protected int health;
-	protected Faction faction;
 	protected SpriteRenderer sr;
 
 	private bool hurt = false;
@@ -26,16 +26,7 @@ public abstract class Hurtable : MonoBehaviour {
 		sr = GetComponent<SpriteRenderer>();
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		Attack s = collision.gameObject.GetComponent<Attack>();
-		if (s != null && s.Faction != faction)
-		{
-			Damage(s.Damage);
-		}
-	}
-
-	private void Damage(int damage)
+	public void Damage(int damage)
 	{
 		if (!hurt)
 		{
