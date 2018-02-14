@@ -382,7 +382,7 @@ public class SudokuController : MonoBehaviour {
 		} else {
 			foreach (SquareController square in squares) {
 				if (square == selectedSquare) {
-					square.highlighted = false;
+					square.highlighted = true;
 				} else {
 					square.highlighted = false;
 				}

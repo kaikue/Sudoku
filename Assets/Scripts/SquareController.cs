@@ -122,7 +122,7 @@ public class SquareController : MonoBehaviour {
 	}
 
 	private static Color highlightColor(Color c) {
-		return new Color (c.r * 0.5f, c.g * 0.5f, c.b, c.a);
+		return new Color (c.r * 0.8f, c.g * 0.8f, c.b, c.a);
 	}
 
 	private void LoadNumberSprites() {
