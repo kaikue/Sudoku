@@ -8,7 +8,7 @@ public class Player : Hurtable {
 
 	private string[] DIRECTIONS = { "Down", "Left", "Up", "Right" };
 	private const float SPEED = 3.0f;
-	private const float ATTACK_DISTANCE = 0.8f;
+	private const float ATTACK_DISTANCE = 0.9f;
 	private const float ATTACK_OFFSET = 0.5f;
 	private const int MAX_HEALTH = 3;
 
