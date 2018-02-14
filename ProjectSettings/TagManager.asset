@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tower
-  - TowerShot
   - Shot
   - SudokuController
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 114597149030354474}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: TowerShot
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04853c37f09578a40a3991c0d0bd46e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parent: {fileID: 0}
 --- !u!212 &212125740487455142
 SpriteRenderer:
   m_ObjectHideFlags: 1

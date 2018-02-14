@@ -99,10 +99,10 @@ public class BattleController : MonoBehaviour {
 
 	public void Lose()
 	{
-		/*GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 		foreach (GameObject enemy in enemies) {
 			Destroy(enemy);
-		}*/
+		}
 		if (gameOver) return;
 
 		gameOver = true;
