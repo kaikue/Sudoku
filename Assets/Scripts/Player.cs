@@ -61,11 +61,16 @@ public class Player : Hurtable {
 
 	void FixedUpdate()
 	{
-		
 		Vector2 vel = new Vector2();
 
 		float horiz = Input.GetAxisRaw("Horizontal");
 		float vert = Input.GetAxisRaw("Vertical");
+
+		if (MyAttack != null) //can't move while attacking
+		{
+			horiz = 0;
+			vert = 0;
+		}
 
 		vel.x = horiz * SPEED;
 		vel.y = vert * SPEED;
