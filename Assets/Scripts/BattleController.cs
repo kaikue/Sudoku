@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class BattleController : MonoBehaviour {
 
 	public GameObject Player;
 	public GameObject Pause;
+	public GameObject WinText;
 	public GameObject Tower1;
 	public GameObject Tower2;
 	public GameObject Tower3;
@@ -77,7 +78,9 @@ public class BattleController : MonoBehaviour {
 	public void Win()
 	{
 		sudoku.gameObject.transform.parent.gameObject.SetActive(true);
-		sudoku.SetCorrectNumber();
+		int num = sudoku.SetCorrectNumber();
+		WinText.SetActive(true);
+		WinText.GetComponent<Text>().text = "" + num;
 		sudoku.ReturnToNormal(this);
 	}
 
