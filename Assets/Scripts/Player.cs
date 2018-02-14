@@ -8,7 +8,8 @@ public class Player : Hurtable {
 
 	private string[] DIRECTIONS = { "Down", "Left", "Up", "Right" };
 	private const float SPEED = 3.0f;
-	private const float ATTACK_DISTANCE = 0.5f;
+	private const float ATTACK_DISTANCE = 0.8f;
+	private const float ATTACK_OFFSET = 0.5f;
 	private const int MAX_HEALTH = 3;
 
 	private BattleController bc;
@@ -99,12 +100,14 @@ public class Player : Hurtable {
 	{
 		Vector3 attackOffset = facing.normalized;
 		attackOffset *= ATTACK_DISTANCE;
-		
+		attackOffset += ATTACK_OFFSET * Vector3.down;
+
 		//PlaySound("player_shoot");
 
 		GameObject attack = Instantiate(AttackPrefab);
 		attack.transform.position = gameObject.transform.position + attackOffset;
 		attack.transform.parent = gameObject.transform;
+		//attack.transform.localScale = new Vector3(0.1f, 0.1f, 1);
 		MyAttack = attack.GetComponent<Attack>();
 		MyAttack.Offset = attackOffset;
 		MyAttack.Faction = faction;
