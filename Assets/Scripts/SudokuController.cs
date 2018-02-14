@@ -114,6 +114,8 @@ public class SudokuController : MonoBehaviour {
 
 	private IEnumerator ZoomIn(GameObject battle)
 	{
+		//TODO: don't show selection image
+		//TODO: disable canvas
 		battle.transform.position = selectedSquare.transform.position;
 		battle.transform.localScale = new Vector3(BATTLE_SCALE, BATTLE_SCALE, 1);
 		cameraGoalPos = new Vector3(selectedSquare.transform.position.x, selectedSquare.transform.position.y, -10);
@@ -133,7 +135,6 @@ public class SudokuController : MonoBehaviour {
 
 	private IEnumerator ZoomOut(BattleController bc)
 	{
-		print("Zoomy out");
 		parent.transform.localScale = new Vector3(1 / BATTLE_SCALE, 1 / BATTLE_SCALE, 1);
 		cameraGoalPos = new Vector3(0, 0, -10);
 		cameraGoalSize = cameraNormalSize / BATTLE_SCALE;
@@ -145,8 +146,9 @@ public class SudokuController : MonoBehaviour {
 		}
 		cam.transform.position = cameraGoalPos;
 		cam.orthographicSize = cameraNormalSize;
-		Destroy(bc.gameObject.transform.parent.gameObject);
+		Destroy(bc.gameObject.transform.parent.gameObject); //TODO: why does this not work sometimes?
 		parent.transform.localScale = new Vector3(1, 1, 1);
+		//TODO: enable canvas
 	}
 
 	public void SetNumber(SudokuNumber number) {
