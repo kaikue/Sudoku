@@ -12,12 +12,23 @@ public class SudokuController : MonoBehaviour {
 	public GameObject winText;
 	public GameObject parent;
 	public GameObject canvas;
+	public GameObject buttonNumber;
+	public GameObject buttonNotes;
+	public GameObject buttonErase;
+	public GameObject buttonBattle;
+	public GameObject[] toggleNumbers;
+	public GameObject toggleGroup;
 	public Camera cam;
 	public float squareSeparationX;
 	public float squareSeparationY;
 
-	// Battle args here
 	public SquareController selectedSquare;
+	public SudokuNumber selectedNumber;
+
+
+	// Battle args here
+	public ButtonMode.Mode selectedMode;
+
 
 	private int[] testNumbers = 
 	{-2, 6, -1, 3, -7, -5, 8, -9, 4,
@@ -30,7 +41,16 @@ public class SudokuController : MonoBehaviour {
 	 -4, -8, -9, -1, 6, -7, 5, 2, 3,
      1, -7, 2, -5, -3, 9, -4, 8, -6};
 
-	private int[] solution;
+	/*private int[] testNumbers = 
+	{2, 6, 1, 3, 7, 5, 8, 9, 4,
+     5, 3, 7, 8, 9, 4, 1, 6, 2,
+	 9, 4, 8, 2, 1, 6, 3, 5, 7,
+	 6, 9, 4, 7, 5, 1, 2, 3, 8,
+	 8, 2, 5, 9, 4, 3, 6, 7, 1,
+	 7, 1, 3, 6, 2, 8, 9, 4, 5,
+	 3, 5, 6, 4, 8, 2, 7, 1, 9,
+	 4, 8, 9, 1, 6, 7, 5, 2, 3,
+     1, 7, 2, 5, 3, 9, 4, 8, -6};*/
 
 	private SquareController[] squares;
 	private bool notes;
@@ -41,66 +61,151 @@ public class SudokuController : MonoBehaviour {
 	private float cameraGoalSize;
 	private float cameraNormalSize = 4;
 
+	// Use this for initialization
 	void Start () {
 		squares = new SquareController[81];
 
 		InstantiateSquares ();
 		InitializeSquares ();
 
+		SelectMode (ButtonMode.Mode.NONE);
+
 		winText.GetComponent<Text> ().text = "";
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		ProcessClick ();
+		ProcessKeyPress ();
+		UpdateBattleAvailability ();
+		UpdateConflicts ();
+		UpdateSelected ();
+		CheckForWin ();
+	}
+
+	public void SetLostBattle()
+	{
+		selectedSquare.lostBattle = true;
+	}
+	
+	public void ExitGame() {
+		//TODO: Implement
+		Destroy(Parent.parent);
+		SceneManager.LoadScene("Title");
+	}
+
+	public void SelectMode(ButtonMode.Mode mode) {
+		selectedMode = mode;
+		selectedSquare = null;
+		selectedNumber = SudokuNumber.NONE;
+		toggleGroup.GetComponent<ToggleGroup> ().SetAllTogglesOff ();
+
+
+		switch (mode) {
+		case ButtonMode.Mode.NUMBER:
+			buttonNumber.GetComponent<ButtonMode> ().selected = true;	
+			buttonNotes.GetComponent<ButtonMode> ().selected = false;	
+			buttonErase.GetComponent<ButtonMode> ().selected = false;	
+			buttonBattle.GetComponent<ButtonMode> ().selected = false;	
+			foreach (GameObject o in toggleNumbers) {
+				o.GetComponent<Toggle> ().enabled = true;
+			}
+			break;
+		case ButtonMode.Mode.NOTES:
+			buttonNumber.GetComponent<ButtonMode> ().selected = false;	
+			buttonNotes.GetComponent<ButtonMode> ().selected = true;	
+			buttonErase.GetComponent<ButtonMode> ().selected = false;	
+			buttonBattle.GetComponent<ButtonMode> ().selected = false;	
+			foreach (GameObject o in toggleNumbers) {
+				o.GetComponent<Toggle> ().enabled = true;
+			}
+			break;
+		case ButtonMode.Mode.ERASE:
+			buttonNumber.GetComponent<ButtonMode> ().selected = false;	
+			buttonNotes.GetComponent<ButtonMode> ().selected = false;	
+			buttonErase.GetComponent<ButtonMode> ().selected = true;	
+			buttonBattle.GetComponent<ButtonMode> ().selected = false;	
+			foreach (GameObject o in toggleNumbers) {
+				o.GetComponent<Toggle> ().enabled = false;
+			}
+			break;
+		case ButtonMode.Mode.BATTLE:
+			buttonNumber.GetComponent<ButtonMode> ().selected = false;	
+			buttonNotes.GetComponent<ButtonMode> ().selected = false;	
+			buttonErase.GetComponent<ButtonMode> ().selected = false;	
+			buttonBattle.GetComponent<ButtonMode> ().selected = true;	
+			foreach (GameObject o in toggleNumbers) {
+				o.GetComponent<Toggle> ().enabled = false;
+			}
+			break;
+		case ButtonMode.Mode.NONE:
+			buttonNumber.GetComponent<ButtonMode> ().selected = false;	
+			buttonNotes.GetComponent<ButtonMode> ().selected = false;	
+			buttonErase.GetComponent<ButtonMode> ().selected = false;	
+			buttonBattle.GetComponent<ButtonMode> ().selected = false;	
+			foreach (GameObject o in toggleNumbers) {
+				o.GetComponent<Toggle> ().enabled = false;
+			}
+			break;
+		}
+	}
+
+	public void SelectNumber(SudokuNumber number) {
+		selectedNumber = number;
+		selectedSquare = null;
+	}
+
+	public void SelectSquare(SquareController square) {
+		selectedSquare = square;
+		ApplySelectedAction ();
+	}
+
+	private void ProcessClick() {
 		if (Input.GetMouseButtonDown (0)) {
 			Vector3 mousePosition = cam.ScreenToWorldPoint (Input.mousePosition);
 			RaycastHit2D hit = Physics2D.Raycast (new Vector2(mousePosition.x, mousePosition.y), Vector2.zero);
 			if (hit != null && hit.collider != null) {
 				SquareController newSelectedSquare = hit.collider.gameObject.GetComponent<SquareController>();
-				if (!newSelectedSquare.hint) {
-					if (selectedSquare != null) {
-						selectedSquare.highlighted = false;
-					}
+				if (!newSelectedSquare.hint && (selectedMode == ButtonMode.Mode.ERASE || 
+												(selectedMode != ButtonMode.Mode.BATTLE && 
+													selectedNumber != SudokuNumber.NONE))) {
+					SelectSquare (newSelectedSquare);
+				}
 
-					if (selectedSquare == newSelectedSquare && selectedSquare.noted) {
-						Battle();
-					}
-
-					selectedSquare = newSelectedSquare;
-
-					selectedSquare.highlighted = true;
-					selectedSquare.noted = notes;
-					selectedSquare.notes = new bool[9];
+				if (!newSelectedSquare.hint && newSelectedSquare.highlighted && (selectedMode == ButtonMode.Mode.BATTLE)) {
+					SelectSquare (newSelectedSquare);
 				}
 			}
 		}
-
-		if (Input.anyKeyDown) {
-			if (Input.GetKeyDown (KeyCode.Alpha1)) {
-				SetNumber (SudokuNumber.ONE);
-			} else if (Input.GetKeyDown(KeyCode.Alpha2)) {
-				SetNumber (SudokuNumber.TWO);
-			} else if (Input.GetKeyDown(KeyCode.Alpha3)) {
-				SetNumber (SudokuNumber.THREE);
-			} else if (Input.GetKeyDown(KeyCode.Alpha4)) {
-				SetNumber (SudokuNumber.FOUR);
-			} else if (Input.GetKeyDown(KeyCode.Alpha5)) {
-				SetNumber (SudokuNumber.FIVE);
-			} else if (Input.GetKeyDown(KeyCode.Alpha6)) {
-				SetNumber (SudokuNumber.SIX);
-			} else if (Input.GetKeyDown(KeyCode.Alpha7)) {
-				SetNumber (SudokuNumber.SEVEN);
-			} else if (Input.GetKeyDown(KeyCode.Alpha8)) {
-				SetNumber (SudokuNumber.EIGHT);
-			} else if (Input.GetKeyDown(KeyCode.Alpha9)) {
-				SetNumber (SudokuNumber.NINE);
-			}
-		}
-
-		CheckForWin ();
 	}
 
-	private void Battle()
+	private void ProcessKeyPress() {
+		if (Input.anyKeyDown) {
+			if (Input.GetKeyDown (KeyCode.Alpha1)) {
+				SelectNumber(SudokuNumber.ONE);
+			} else if (Input.GetKeyDown(KeyCode.Alpha2)) {
+				SelectNumber(SudokuNumber.TWO);
+			} else if (Input.GetKeyDown(KeyCode.Alpha3)) {
+				SelectNumber(SudokuNumber.THREE);
+			} else if (Input.GetKeyDown(KeyCode.Alpha4)) {
+				SelectNumber(SudokuNumber.FOUR);
+			} else if (Input.GetKeyDown(KeyCode.Alpha5)) {
+				SelectNumber(SudokuNumber.FIVE);
+			} else if (Input.GetKeyDown(KeyCode.Alpha6)) {
+				SelectNumber(SudokuNumber.SIX);
+			} else if (Input.GetKeyDown(KeyCode.Alpha7)) {
+				SelectNumber(SudokuNumber.SEVEN);
+			} else if (Input.GetKeyDown(KeyCode.Alpha8)) {
+				SelectNumber(SudokuNumber.EIGHT);
+			} else if (Input.GetKeyDown(KeyCode.Alpha9)) {
+				SelectNumber(SudokuNumber.NINE);
+			}
+		}
+	}
+
+
+
+	public void Battle()
 	{
 		GameObject battle = Instantiate(battlePrefab);
 		BattleController bc = battle.GetComponentInChildren<BattleController>();
@@ -151,33 +256,36 @@ public class SudokuController : MonoBehaviour {
 		canvas.SetActive(true);
 	}
 
-	public void SetNumber(SudokuNumber number) {
-		if (selectedSquare == null) return;
+	private void ApplySelectedAction() {
+		switch (selectedMode) {
+		case ButtonMode.Mode.NUMBER:
+			if (selectedSquare != null && selectedNumber != SudokuNumber.NONE) {
+				selectedSquare.number = selectedNumber;
 
-		if (selectedSquare.noted) {
-			selectedSquare.notes [(int)number] = true;
-		} else {
-			selectedSquare.number = number;
-			selectedSquare.cleared = false;
-			CheckForConflicts ();
-		}
-	}
+				selectedSquare.notesVisible = false;
+				selectedSquare.numberVisible = true;
+			}
+			break;
+		case ButtonMode.Mode.NOTES:
+			if (selectedSquare != null && selectedNumber != SudokuNumber.NONE) {
+				selectedSquare.notes [(int)selectedNumber] = true;
 
-	public void SetNotes(bool notes) {
-		this.notes = notes;
-		if (selectedSquare != null) {
-			selectedSquare.noted = notes;
-			selectedSquare.notes = new bool[9];
+				selectedSquare.notesVisible = true;
+				selectedSquare.numberVisible = false;
+			}
+			break;
+		case ButtonMode.Mode.ERASE:
+			if (selectedSquare != null) {
+				selectedSquare.notesVisible = false;
+				selectedSquare.numberVisible = false;
+			}
+			break;
+		case ButtonMode.Mode.BATTLE:
+			if (selectedSquare != null) {
+				Battle ();
+			}
+			break;
 		}
-		CheckForConflicts ();
-	}	
-
-	public void Erase() {
-		if (selectedSquare != null) {
-			selectedSquare.cleared = true;
-			selectedSquare.notes = new bool[9];
-		}
-		CheckForConflicts ();
 	}	
 
 	public SudokuNumber GetCorrectNumber() {
@@ -185,35 +293,55 @@ public class SudokuController : MonoBehaviour {
 	}
 
 	public void SetCorrectNumber() {
-		SetNotes (false);
-		SudokuNumber correctNumber = GetCorrectNumber();
-        SetNumber (correctNumber);
-	}
-
-	public void SetLostBattle()
-	{
-		//TODO: can't battle on selected square anymore
-	}
-	
-	public void ExitGame() {
-		//TODO: Implement
+		selectedSquare.number = GetCorrectNumber ();
+		selectedSquare.hint = true;
+		selectedSquare.numberVisible = true;
+		selectedSquare.notesVisible = false;
+		SquareController tempSquare = selectedSquare;
+		SelectMode (ButtonMode.Mode.NONE);
+		SelectSquare (tempSquare);
 	}
 
 	private void CheckForWin() {
-		CheckForConflicts ();
 		bool won = true;
 		foreach (SquareController square in squares) {
-			if (square.cleared || square.noted || square.softConflicting || square.hardConflicting) {
+			if (!square.numberVisible || square.notesVisible || square.softConflicting || square.hardConflicting) {
 				won = false;
 			}
 		}
 
 		if (won) {
-			winText.GetComponent<Text> ().text = "YOU WIN";
+			Win ();
 		}
 	}
 
-	private void CheckForConflicts() {
+	private void Win() {
+		
+		Destroy (Parent.parent);
+		SceneManager.LoadScene ("EndGame");
+	}
+
+	private void UpdateBattleAvailability() {
+		foreach (SquareController square in squares) {
+			if (square.notesVisible && !square.lostBattle) {
+				int notesCount = 0;
+				for (int idx = 0; idx < 9; idx++) {
+					if (square.notes [idx]) {
+						notesCount++;
+					}
+				}
+
+				if (notesCount >= 2) {
+					buttonBattle.SetActive (true);	
+					return;
+				}
+			}
+		}
+
+		buttonBattle.SetActive (false);
+	}
+
+	private void UpdateConflicts() {
 		foreach (SquareController square in squares) {
 			square.softConflicting = false;
 			square.hardConflicting = false;
@@ -221,10 +349,7 @@ public class SudokuController : MonoBehaviour {
 
 		foreach (SquareController square1 in squares) {
 			foreach (SquareController square2 in GetConflicting(square1)) {
-				if (square1 != square2 && 
-						!square1.cleared && !square2.cleared && 
-						!square1.noted && !square2.noted &&
-						square1.number.Equals (square2.number)) {
+				if (square1 != square2 && square1.numberVisible && square2.numberVisible && square1.number.Equals (square2.number)) {
 					if (square1.hint && !square2.hint) {
 						square2.hardConflicting = true;
 					} else if (!square1.hint && square2.hint) {
@@ -233,6 +358,33 @@ public class SudokuController : MonoBehaviour {
 						square1.softConflicting = true;
 						square2.softConflicting = true;
 					}
+				}
+			}
+		}
+	}
+
+	private void UpdateSelected() {
+		if (selectedMode == ButtonMode.Mode.BATTLE) {
+			foreach (SquareController square in squares) {
+				if (square.notesVisible && !square.lostBattle) {
+					int notesCount = 0;
+					for (int idx = 0; idx < 9; idx++) {
+						if (square.notes [idx]) {
+							notesCount++;
+						}
+					}
+
+					if (notesCount >= 2) {
+						square.highlighted = true;
+					}
+				}
+			}
+		} else {
+			foreach (SquareController square in squares) {
+				if (square == selectedSquare) {
+					square.highlighted = false;
+				} else {
+					square.highlighted = false;
 				}
 			}
 		}
@@ -261,9 +413,10 @@ public class SudokuController : MonoBehaviour {
 			SquareController square = squares [i];
 			square.index = i;
 			if (testNumbers [i] < 0) {
-				square.cleared = true;
+				square.numberVisible = false;
 			} else {
 				square.hint = true;
+				square.numberVisible = true;
 				square.number = (SudokuNumber)(testNumbers [i] - 1);
 			}
 		}

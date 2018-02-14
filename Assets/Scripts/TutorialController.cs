@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TitleController : MonoBehaviour {
+public class TutorialController : MonoBehaviour {
 
 	public KeyCode continueKey;
 
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKey (continueKey)) {
-			SceneManager.LoadScene ("Tutorial");
+			SceneManager.LoadScene ("Sudoku");
 		}
 	}
 }

@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selected: 0
-  cursorOffset: {x: 0, y: 0}
+  cursorOffset: {x: -35, y: -25}
 --- !u!222 &222940564275589580
 CanvasRenderer:
   m_ObjectHideFlags: 1
