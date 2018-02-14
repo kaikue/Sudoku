@@ -94,6 +94,11 @@ public class BattleController : MonoBehaviour {
 
 	public void Lose()
 	{
+		/*GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+		foreach (GameObject enemy in enemies) {
+			Destroy(enemy);
+		}*/
+
 		sudoku.gameObject.transform.parent.gameObject.SetActive(true);
 		sudoku.SetLostBattle();
 		sudoku.ReturnToNormal(this);

@@ -38,6 +38,7 @@ public class SudokuController : MonoBehaviour {
 	private const float ZOOM_TIME = 1.0f;
 	private Vector3 cameraGoalPos;
 	private float cameraGoalSize;
+	private float cameraNormalSize = 4;
 
 	void Start () {
 		squares = new SquareController[81];
@@ -103,35 +104,39 @@ public class SudokuController : MonoBehaviour {
 		GameObject battle = Instantiate(battlePrefab);
 		BattleController bc = battle.GetComponentInChildren<BattleController>();
 		bc.InitializeGame(selectedSquare, this);
+		StartCoroutine(ZoomIn(battle));
+	}
+
+	public void ReturnToNormal(BattleController bc)
+	{
+		StartCoroutine(ZoomOut(bc));
+	}
+
+	private IEnumerator ZoomIn(GameObject battle)
+	{
 		battle.transform.position = selectedSquare.transform.position;
 		battle.transform.localScale = new Vector3(BATTLE_SCALE, BATTLE_SCALE, 1);
 		cameraGoalPos = new Vector3(selectedSquare.transform.position.x, selectedSquare.transform.position.y, -10);
-		cameraGoalSize = 4 * BATTLE_SCALE;
-		StartCoroutine(ZoomIn());
-	}
+		cameraGoalSize = cameraNormalSize * BATTLE_SCALE;
 
-	public void ReturnToNormal(BattleController battle)
-	{
-		cameraGoalPos = new Vector3(0, 0, -10);
-		cameraGoalSize = 4;
-		StartCoroutine(ZoomOut(battle));
-	}
-
-	private IEnumerator ZoomIn()
-	{
 		for (float t = 0; t < ZOOM_TIME; t += Time.deltaTime)
 		{
 			cam.transform.position = Vector3.Lerp(cam.transform.position, cameraGoalPos, t);
 			cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, cameraGoalSize, t);
 			yield return new WaitForEndOfFrame();
 		}
-		cam.transform.position = cameraGoalPos;
-		cam.orthographicSize = cameraGoalSize;
 		parent.SetActive(false);
+		cam.transform.position = cameraGoalPos;
+		cam.orthographicSize = cameraNormalSize;
+		battle.transform.localScale = new Vector3(1, 1, 1);
 	}
 
-	private IEnumerator ZoomOut(BattleController battle)
+	private IEnumerator ZoomOut(BattleController bc)
 	{
+		print("Zoomy out");
+		parent.transform.localScale = new Vector3(1 / BATTLE_SCALE, 1 / BATTLE_SCALE, 1);
+		cameraGoalPos = new Vector3(0, 0, -10);
+		cameraGoalSize = cameraNormalSize / BATTLE_SCALE;
 		for (float t = 0; t < ZOOM_TIME; t += Time.deltaTime)
 		{
 			cam.transform.position = Vector3.Lerp(cam.transform.position, cameraGoalPos, t);
@@ -139,8 +144,9 @@ public class SudokuController : MonoBehaviour {
 			yield return new WaitForEndOfFrame();
 		}
 		cam.transform.position = cameraGoalPos;
-		cam.orthographicSize = cameraGoalSize;
-		Destroy(battle.gameObject.transform.parent.gameObject);
+		cam.orthographicSize = cameraNormalSize;
+		Destroy(bc.gameObject.transform.parent.gameObject);
+		parent.transform.localScale = new Vector3(1, 1, 1);
 	}
 
 	public void SetNumber(SudokuNumber number) {
