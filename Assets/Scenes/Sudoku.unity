@@ -1910,6 +1910,7 @@ MonoBehaviour:
   board: {fileID: 1100694246}
   winText: {fileID: 467806174}
   parent: {fileID: 1813329586}
+  canvas: {fileID: 1460728552}
   cam: {fileID: 1571091853}
   squareSeparationX: 0.545
   squareSeparationY: 0.545

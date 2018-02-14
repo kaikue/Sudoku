@@ -11,6 +11,7 @@ public class SudokuController : MonoBehaviour {
 	public GameObject board;
 	public GameObject winText;
 	public GameObject parent;
+	public GameObject canvas;
 	public Camera cam;
 	public float squareSeparationX;
 	public float squareSeparationY;
@@ -115,12 +116,11 @@ public class SudokuController : MonoBehaviour {
 	private IEnumerator ZoomIn(GameObject battle)
 	{
 		//TODO: don't show selection image
-		//TODO: disable canvas
+		canvas.SetActive(false);
 		battle.transform.position = selectedSquare.transform.position;
 		battle.transform.localScale = new Vector3(BATTLE_SCALE, BATTLE_SCALE, 1);
 		cameraGoalPos = new Vector3(selectedSquare.transform.position.x, selectedSquare.transform.position.y, -10);
 		cameraGoalSize = cameraNormalSize * BATTLE_SCALE;
-
 		for (float t = 0; t < ZOOM_TIME; t += Time.deltaTime)
 		{
 			cam.transform.position = Vector3.Lerp(cam.transform.position, cameraGoalPos, t);
@@ -146,9 +146,9 @@ public class SudokuController : MonoBehaviour {
 		}
 		cam.transform.position = cameraGoalPos;
 		cam.orthographicSize = cameraNormalSize;
-		Destroy(bc.gameObject.transform.parent.gameObject); //TODO: why does this not work sometimes?
+		Destroy(bc.gameObject.transform.parent.gameObject);
 		parent.transform.localScale = new Vector3(1, 1, 1);
-		//TODO: enable canvas
+		canvas.SetActive(true);
 	}
 
 	public void SetNumber(SudokuNumber number) {
