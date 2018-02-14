@@ -18,4 +18,13 @@ public class Attack : MonoBehaviour {
 		yield return new WaitForSeconds(lifespan);
 		Destroy(gameObject);
 	}
+	
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		Hitbox h = collision.gameObject.GetComponent<Hitbox>();
+		if (h != null && Faction != h.parent.faction)
+		{
+			h.parent.Damage(Damage);
+		}
+	}
 }
