@@ -33,7 +33,12 @@ public class SudokuController : MonoBehaviour {
 
 	private SquareController[] squares;
 	private bool notes;
-	// Use this for initialization
+
+	private const float BATTLE_SCALE = 0.03f;
+	private const float ZOOM_TIME = 1.0f;
+	private Vector3 cameraGoalPos;
+	private float cameraGoalSize;
+
 	void Start () {
 		squares = new SquareController[81];
 
@@ -98,14 +103,43 @@ public class SudokuController : MonoBehaviour {
 		GameObject battle = Instantiate(battlePrefab);
 		BattleController bc = battle.GetComponentInChildren<BattleController>();
 		bc.InitializeGame(selectedSquare, this);
-		//TODO: set battle.position and scale
-		//TODO: zoom in on battle
-		parent.SetActive(false);
+		battle.transform.position = selectedSquare.transform.position;
+		battle.transform.localScale = new Vector3(BATTLE_SCALE, BATTLE_SCALE, 1);
+		cameraGoalPos = new Vector3(selectedSquare.transform.position.x, selectedSquare.transform.position.y, -10);
+		cameraGoalSize = 4 * BATTLE_SCALE;
+		StartCoroutine(ZoomIn());
 	}
 
 	public void ReturnToNormal(BattleController battle)
 	{
-		//TODO: zoom out
+		cameraGoalPos = new Vector3(0, 0, -10);
+		cameraGoalSize = 4;
+		StartCoroutine(ZoomOut(battle));
+	}
+
+	private IEnumerator ZoomIn()
+	{
+		for (float t = 0; t < ZOOM_TIME; t += Time.deltaTime)
+		{
+			cam.transform.position = Vector3.Lerp(cam.transform.position, cameraGoalPos, t);
+			cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, cameraGoalSize, t);
+			yield return new WaitForEndOfFrame();
+		}
+		cam.transform.position = cameraGoalPos;
+		cam.orthographicSize = cameraGoalSize;
+		parent.SetActive(false);
+	}
+
+	private IEnumerator ZoomOut(BattleController battle)
+	{
+		for (float t = 0; t < ZOOM_TIME; t += Time.deltaTime)
+		{
+			cam.transform.position = Vector3.Lerp(cam.transform.position, cameraGoalPos, t);
+			cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, cameraGoalSize, t);
+			yield return new WaitForEndOfFrame();
+		}
+		cam.transform.position = cameraGoalPos;
+		cam.orthographicSize = cameraGoalSize;
 		Destroy(battle.gameObject.transform.parent.gameObject);
 	}
 
