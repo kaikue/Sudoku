@@ -138,11 +138,14 @@ public class SudokuController : MonoBehaviour {
 		CheckForConflicts ();
 	}	
 
-	public int SetCorrectNumber() {
+	public SudokuNumber GetCorrectNumber() {
+		return (SudokuNumber)((-1 * testNumbers[selectedSquare.index]) - 1);
+	}
+
+	public void SetCorrectNumber() {
 		SetNotes (false);
-		SudokuNumber correctNumber = (SudokuNumber)((-1 * testNumbers[selectedSquare.index]) - 1);
+		SudokuNumber correctNumber = GetCorrectNumber();
         SetNumber (correctNumber);
-		return ((int)correctNumber) + 1;
 	}
 
 	public void SetLostBattle()

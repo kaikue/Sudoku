@@ -77,11 +77,19 @@ public class BattleController : MonoBehaviour {
 
 	public void Win()
 	{
-		sudoku.gameObject.transform.parent.gameObject.SetActive(true);
-		int num = sudoku.SetCorrectNumber();
-		WinText.SetActive(true);
-		WinText.GetComponent<Text>().text = "" + num;
-		sudoku.ReturnToNormal(this);
+		SudokuNumber sNum = sudoku.GetCorrectNumber();
+		int num = (int)sNum;
+		if (sudoku.selectedSquare.notes[num]) //only win if it was a possibility
+		{
+			sudoku.gameObject.transform.parent.gameObject.SetActive(true);
+			WinText.SetActive(true);
+			WinText.GetComponent<Text>().text = "" + (num + 1);
+			sudoku.ReturnToNormal(this);
+		}
+		else
+		{
+			Lose();
+		}
 	}
 
 	public void Lose()
