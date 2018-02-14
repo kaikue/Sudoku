@@ -89,6 +89,7 @@ public class BattleController : MonoBehaviour {
 			sudoku.gameObject.transform.parent.gameObject.SetActive(true);
 			WinText.SetActive(true);
 			WinText.GetComponent<Text>().text = "" + (num + 1);
+			sudoku.SetCorrectNumber ();
 			sudoku.ReturnToNormal(this);
 		}
 		else
