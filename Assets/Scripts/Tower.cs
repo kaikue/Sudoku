@@ -6,8 +6,11 @@ using UnityEngine;
 public class Tower : Hurtable {
 
 	public GameObject EnemyPrefab;
+	public Sprite hurt1Sprite;
+	public Sprite hurt2Sprite;
+	public Sprite hurt3Sprite;
 
-	private const int MAX_HEALTH = 5;
+	private const int MAX_HEALTH = 4;
 	private const float SPAWN_TIME = 3.0f;
 	private const float ENEMY_DISTANCE = 2.0f;
 
@@ -43,6 +46,23 @@ public class Tower : Hurtable {
 		enemy.transform.parent = gameObject.transform.parent; //so it'll get destroyed if the battle is
 	}
 	
+	public override void Damage(int damage)
+	{
+		base.Damage(damage);
+		if (health == 3)
+		{
+			sr.sprite = hurt1Sprite;
+		}
+		else if (health == 2)
+		{
+			sr.sprite = hurt2Sprite;
+		}
+		else if (health == 1)
+		{
+			sr.sprite = hurt3Sprite;
+		}
+	}
+
 	protected override void Die()
 	{
 		bc.DestroyTower(gameObject);

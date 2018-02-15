@@ -26,7 +26,7 @@ public abstract class Hurtable : MonoBehaviour {
 		sr = GetComponent<SpriteRenderer>();
 	}
 
-	public void Damage(int damage)
+	public virtual void Damage(int damage)
 	{
 		if (!hurt)
 		{
