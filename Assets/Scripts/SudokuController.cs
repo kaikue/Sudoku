@@ -229,12 +229,13 @@ public class SudokuController : MonoBehaviour {
 
 	private IEnumerator ZoomIn(GameObject battle)
 	{
-		//TODO: don't show selection image
+		selectedSquare.gameObject.SetActive(false);
 		canvas.SetActive(false);
 		battle.transform.position = selectedSquare.transform.position;
 		battle.transform.localScale = new Vector3(BATTLE_SCALE, BATTLE_SCALE, 1);
 		cameraGoalPos = new Vector3(selectedSquare.transform.position.x, selectedSquare.transform.position.y, -10);
-		cameraGoalSize = cameraNormalSize * BATTLE_SCALE;
+		float cameraBattleSize = cameraNormalSize * 1.3f; //a little bigger so it fits
+		cameraGoalSize = cameraBattleSize * BATTLE_SCALE;
 		for (float t = 0; t < ZOOM_TIME; t += Time.deltaTime)
 		{
 			cam.transform.position = Vector3.Lerp(cam.transform.position, cameraGoalPos, t);
@@ -243,15 +244,17 @@ public class SudokuController : MonoBehaviour {
 		}
 		parent.SetActive(false);
 		cam.transform.position = cameraGoalPos;
-		cam.orthographicSize = cameraNormalSize;
+		cam.orthographicSize = cameraBattleSize;
 		battle.transform.localScale = new Vector3(1, 1, 1);
 	}
 
 	private IEnumerator ZoomOut(BattleController bc)
 	{
-		parent.transform.localScale = new Vector3(1 / BATTLE_SCALE, 1 / BATTLE_SCALE, 1);
+		GameObject battleParent = bc.gameObject.transform.parent.gameObject;
+		battleParent.transform.localScale = new Vector3(BATTLE_SCALE, BATTLE_SCALE, 1);
+		cam.orthographicSize = cameraNormalSize * 1.3f * BATTLE_SCALE;
 		cameraGoalPos = new Vector3(0, 0, -10);
-		cameraGoalSize = cameraNormalSize / BATTLE_SCALE;
+		cameraGoalSize = cameraNormalSize;
 		for (float t = 0; t < ZOOM_TIME; t += Time.deltaTime)
 		{
 			cam.transform.position = Vector3.Lerp(cam.transform.position, cameraGoalPos, t);
@@ -260,9 +263,9 @@ public class SudokuController : MonoBehaviour {
 		}
 		cam.transform.position = cameraGoalPos;
 		cam.orthographicSize = cameraNormalSize;
-		Destroy(bc.gameObject.transform.parent.gameObject);
-		parent.transform.localScale = new Vector3(1, 1, 1);
+		Destroy(battleParent);
 		canvas.SetActive(true);
+		selectedSquare.gameObject.SetActive(true);
 	}
 
 	private void ApplySelectedAction() {
