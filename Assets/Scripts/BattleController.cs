@@ -7,7 +7,7 @@ public class BattleController : MonoBehaviour {
 
 	public GameObject Player;
 	public GameObject Pause;
-	public GameObject WinText;
+	public GameObject WinImage;
 	public GameObject Tower1;
 	public GameObject Tower2;
 	public GameObject Tower3;
@@ -87,8 +87,8 @@ public class BattleController : MonoBehaviour {
 		if (sudoku.selectedSquare.notes[num]) //only win if it was a possibility
 		{
 			sudoku.gameObject.transform.parent.gameObject.SetActive(true);
-			WinText.SetActive(true);
-			WinText.GetComponent<Text>().text = "" + (num + 1);
+			WinImage.SetActive(true);
+			WinImage.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("game_numbers/" + sNum.ToString());
 			sudoku.SetCorrectNumber ();
 			sudoku.ReturnToNormal(this);
 		}
