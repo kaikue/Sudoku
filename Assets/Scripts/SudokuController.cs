@@ -220,7 +220,7 @@ public class SudokuController : MonoBehaviour {
 
 	private IEnumerator ZoomIn(GameObject battle)
 	{
-		//TODO: don't show selection image
+		selectedSquare.gameObject.SetActive(false);
 		canvas.SetActive(false);
 		battle.transform.position = selectedSquare.transform.position;
 		battle.transform.localScale = new Vector3(BATTLE_SCALE, BATTLE_SCALE, 1);
@@ -256,6 +256,7 @@ public class SudokuController : MonoBehaviour {
 		cam.orthographicSize = cameraNormalSize;
 		Destroy(battleParent);
 		canvas.SetActive(true);
+		selectedSquare.gameObject.SetActive(true);
 	}
 
 	private void ApplySelectedAction() {
