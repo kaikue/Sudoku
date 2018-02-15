@@ -9,7 +9,8 @@ public class Player : Hurtable {
 	private string[] DIRECTIONS = { "Down", "Left", "Up", "Right" };
 	private const float SPEED = 3.0f;
 	private const float ATTACK_DISTANCE = 0.9f;
-	private const float ATTACK_OFFSET = 0.5f;
+	private const float ATTACK_OFFSET_X = -0.1f;
+	private const float ATTACK_OFFSET_Y = -0.5f;
 	private const int MAX_HEALTH = 3;
 
 	private BattleController bc;
@@ -105,7 +106,7 @@ public class Player : Hurtable {
 	{
 		Vector3 attackOffset = facing.normalized;
 		attackOffset *= ATTACK_DISTANCE;
-		attackOffset += ATTACK_OFFSET * Vector3.down;
+		attackOffset += new Vector3(ATTACK_OFFSET_X, ATTACK_OFFSET_Y, 0);
 
 		//PlaySound("player_shoot");
 
