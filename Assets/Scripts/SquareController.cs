@@ -17,7 +17,7 @@ public enum SudokuNumber {
 
 public class SquareController : MonoBehaviour {
 	private readonly static Color COLOR_NUMBER_HINT = new Color (1.0f, 1.0f, 1.0f, 1.0f);
-	private readonly static Color COLOR_NUMBER_NOT_HINT = new Color (1.0f, 1.0f, 1.0f, 0.75f);
+	private readonly static Color COLOR_NUMBER_NOT_HINT = new Color (0.7f, 0.7f, 0.7f, 0.75f);
 	private readonly static Color COLOR_BACKGROUND_NOT_CONFLICTING = new Color (1.0f, 1.0f, 1.0f, 1.0f);
 	private readonly static Color COLOR_BACKGROUND_HARD_CONFLICTING = new Color (1.0f, 0.0f, 0.0f, 1.0f);
 	private readonly static Color COLOR_BACKGROUND_SOFT_CONFLICTING = new Color (1.0f, 1.0f, 0.0f, 1.0f);
@@ -90,8 +90,10 @@ public class SquareController : MonoBehaviour {
 				} else {
 					if (hint) {
 						srNumber.sprite = gameNumberSprites [(int)number];
+						srNumber.color = COLOR_NUMBER_HINT;
 					} else {
 						srNumber.sprite = userNumberSprites [(int)number];
+						srNumber.color = COLOR_NUMBER_NOT_HINT;
 					}
 				}
 			} else {
@@ -111,9 +113,12 @@ public class SquareController : MonoBehaviour {
 			srBackground.color = COLOR_BACKGROUND_NOT_CONFLICTING;
 		}
 
-		if (highlighted) {
+		if (lostBattle) {
+			srBackground.color = lostBattleColor(srBackground.color);
+		} else if (highlighted) {
 			srBackground.color = highlightColor(srBackground.color);
 		}
+
 
 		hardConflictingLastFrame = hardConflicting;
 		numberVisibleLastFrame = numberVisible;
@@ -123,6 +128,10 @@ public class SquareController : MonoBehaviour {
 
 	private static Color highlightColor(Color c) {
 		return new Color (c.r * 0.8f, c.g * 0.8f, c.b, c.a);
+	}
+
+	private static Color lostBattleColor(Color c) {
+		return new Color (c.r, c.g * 0.8f, c.b * 0.8f, c.a);
 	}
 
 	private void LoadNumberSprites() {

@@ -16,7 +16,7 @@ public class ToggleNumber : MonoBehaviour {
 	void Start () {
 		gameController = GameObject.FindGameObjectWithTag ("SudokuController").GetComponent<SudokuController>();
 
-		transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite> ("game_numbers/" + number.ToString ());
+		transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite> ("user_numbers/" + number.ToString ());
 		GetComponent<Toggle> ().onValueChanged.AddListener (ToggleOnClick);
 	}
 

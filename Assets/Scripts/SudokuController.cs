@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -52,6 +53,8 @@ public class SudokuController : MonoBehaviour {
 	 4, 8, 9, 1, 6, 7, 5, 2, 3,
      1, 7, 2, 5, 3, 9, 4, 8, -6};*/
 
+	private int[] solution;
+	private bool generatedBoard;
 	private SquareController[] squares;
 	private bool notes;
 
@@ -63,6 +66,9 @@ public class SudokuController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		solution = new int[81];
+		GenerateBoard ();
+
 		squares = new SquareController[81];
 
 		InstantiateSquares ();
@@ -75,6 +81,9 @@ public class SudokuController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (!generatedBoard) {
+			return;
+		}
 		ProcessClick ();
 		ProcessKeyPress ();
 		UpdateBattleAvailability ();
@@ -289,7 +298,7 @@ public class SudokuController : MonoBehaviour {
 	}	
 
 	public SudokuNumber GetCorrectNumber() {
-		return (SudokuNumber)((-1 * testNumbers[selectedSquare.index]) - 1);
+		return (SudokuNumber)((-1 * solution[selectedSquare.index]) - 1);
 	}
 
 	public void SetCorrectNumber() {
@@ -412,12 +421,12 @@ public class SudokuController : MonoBehaviour {
 		for (int i = 0; i < 81; i++) {
 			SquareController square = squares [i];
 			square.index = i;
-			if (testNumbers [i] < 0) {
+			if (solution [i] < 0) {
 				square.numberVisible = false;
 			} else {
 				square.hint = true;
 				square.numberVisible = true;
-				square.number = (SudokuNumber)(testNumbers [i] - 1);
+				square.number = (SudokuNumber)(solution [i] - 1);
 			}
 		}
 	}
@@ -476,4 +485,37 @@ public class SudokuController : MonoBehaviour {
 
 		return conflicting;
 	}
+
+	private void GenerateBoard() {
+		bool success = false;
+		generatedBoard = false;
+		while (!success) {
+			try {
+				int random = Mathf.FloorToInt (Random.value * 1464.0f);
+				string path = Application.dataPath + "/Resources/puzzles/" + random + ".txt";
+				print ("loading " + path);
+				StreamReader reader = new StreamReader (path);
+				for (int i = 0; i < 81; i++) {
+					char c = (char)reader.Read ();
+					solution [i] = System.Int32.Parse (new string (c, 1));
+				} 
+
+				reader.Read();
+				for (int i = 0; i < 81; i++) {
+					char c = (char)reader.Read ();
+					if (solution[i] == 0) {
+						solution [i] = -1 * System.Int32.Parse (new string (c, 1));
+					}
+				} 
+
+				success = true;
+				print ("loaded " + path);
+			} catch (System.Exception e) {
+				print (e.StackTrace);
+			}
+		}
+
+		generatedBoard = true;
+	}
+
 }
