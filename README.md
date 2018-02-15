@@ -1,6 +1,6 @@
 **Summary**
 
-"Battle Sudoku" is a hybrid puzzle-action game based on Sudoku.
+"SuDoQuest" is a hybrid puzzle-action game based on Sudoku.
 
 **Run Directions**
 
