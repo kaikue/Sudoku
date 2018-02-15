@@ -18,9 +18,6 @@ public enum SudokuNumber {
 public class SquareController : MonoBehaviour {
 	private readonly static Color COLOR_NUMBER_HINT = new Color (1.0f, 1.0f, 1.0f, 1.0f);
 	private readonly static Color COLOR_NUMBER_NOT_HINT = new Color (0.7f, 0.7f, 0.7f, 0.75f);
-	private readonly static Color COLOR_BACKGROUND_NOT_CONFLICTING = new Color (1.0f, 1.0f, 1.0f, 1.0f);
-	private readonly static Color COLOR_BACKGROUND_HARD_CONFLICTING = new Color (1.0f, 0.0f, 0.0f, 1.0f);
-	private readonly static Color COLOR_BACKGROUND_SOFT_CONFLICTING = new Color (1.0f, 1.0f, 0.0f, 1.0f);
 
 	// State variables
 	public AudioSource audioFail;
@@ -41,10 +38,11 @@ public class SquareController : MonoBehaviour {
 
 	private bool hardConflictingLastFrame;
 	private bool numberVisibleLastFrame;
+	private SudokuNumber numberLastFrame;
 	private int notesCountLastFrame;
 
 	private SpriteRenderer srNumber;
-	private SpriteRenderer srBackground;
+	private SpriteRenderer srLostIndicator;
 	private Sprite[] gameNumberSprites;
 	private Sprite[] userNumberSprites;
 
@@ -53,7 +51,7 @@ public class SquareController : MonoBehaviour {
 		notes = new bool[9];
 
 		srNumber = GetComponent<SpriteRenderer> ();
-		srBackground = transform.GetChild (0).gameObject.GetComponent<SpriteRenderer> ();
+		srLostIndicator = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer> ();
 		gameNumberSprites = new Sprite[9];
 		userNumberSprites = new Sprite[9];
 		LoadNumberSprites ();
@@ -85,7 +83,7 @@ public class SquareController : MonoBehaviour {
 			}
 
 			if (numberVisible) {
-				if (!hint && !numberVisibleLastFrame && !hardConflicting) {
+				if (!hint && (!numberVisibleLastFrame || number != numberLastFrame) && !hardConflicting) {
 					audioPencil.Play ();
 				} else {
 					if (hint) {
@@ -105,23 +103,22 @@ public class SquareController : MonoBehaviour {
 			if (!hardConflictingLastFrame) {
 				audioFail.Play ();
 			}
+			//TODO: Make number red
 
-			srBackground.color = COLOR_BACKGROUND_HARD_CONFLICTING;
 		} else if (softConflicting) {
-			srBackground.color = COLOR_BACKGROUND_SOFT_CONFLICTING;
-		} else {
-			srBackground.color = COLOR_BACKGROUND_NOT_CONFLICTING;
+			//TODO: Make number gold
 		}
 
 		if (lostBattle) {
-			srBackground.color = lostBattleColor(srBackground.color);
-		} else if (highlighted) {
-			srBackground.color = highlightColor(srBackground.color);
+			srLostIndicator.color = Color.white;
+		} else {
+			srLostIndicator.color = Color.clear;
 		}
 
 
 		hardConflictingLastFrame = hardConflicting;
 		numberVisibleLastFrame = numberVisible;
+		numberLastFrame = number;
 		notesCountLastFrame = notesCount;
 
 	}
