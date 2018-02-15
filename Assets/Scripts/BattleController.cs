@@ -17,9 +17,7 @@ public class BattleController : MonoBehaviour {
 	public GameObject Tower7;
 	public GameObject Tower8;
 	public GameObject Tower9;
-
-	private GameObject[] towers;
-
+	
 	private SudokuController sudoku;
 	private bool paused = false;
 	private bool gameOver = false;
@@ -37,9 +35,7 @@ public class BattleController : MonoBehaviour {
 			Tower8,
 			Tower9
 		};
-
-		this.towers = towers;
-
+		
 		this.sudoku = sudoku;
 		for (int i = 0; i < 9; i++)
 		{
@@ -79,9 +75,9 @@ public class BattleController : MonoBehaviour {
 	public void Win()
 	{
 		if (gameOver) return;
-		
 		gameOver = true;
-		
+
+		gameObject.transform.parent.gameObject.GetComponentInChildren<AudioSource>().Stop();
 		SudokuNumber sNum = sudoku.GetCorrectNumber();
 		int num = (int)sNum;
 		if (sudoku.selectedSquare.notes[num]) //only win if it was a possibility
@@ -100,13 +96,14 @@ public class BattleController : MonoBehaviour {
 
 	public void Lose()
 	{
+		if (gameOver) return;
+		gameOver = true;
+
+		gameObject.transform.parent.gameObject.GetComponentInChildren<AudioSource>().Stop();
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 		foreach (GameObject enemy in enemies) {
 			Destroy(enemy);
 		}
-		if (gameOver) return;
-
-		gameOver = true;
 		
 		sudoku.gameObject.transform.parent.gameObject.SetActive(true);
 		sudoku.SetLostBattle();

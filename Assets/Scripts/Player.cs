@@ -6,7 +6,6 @@ public class Player : Hurtable {
 
 	public GameObject AttackPrefab;
 
-	private string[] DIRECTIONS = { "Down", "Left", "Up", "Right" };
 	private const float SPEED = 3.0f;
 	private const float ATTACK_DISTANCE = 0.9f;
 	private const float ATTACK_OFFSET_X = -0.1f;

@@ -986,7 +986,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: bfc2a8897a5ab4d1e95b36b1a13bd679, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 65b7194760f63514b8348860836414c5, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -1044,7 +1044,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -1204,6 +1204,7 @@ MonoBehaviour:
   buttonNotes: {fileID: 1054432950}
   buttonErase: {fileID: 1891082157}
   buttonBattle: {fileID: 1732057678}
+  musicObj: {fileID: 1257973642}
   cam: {fileID: 1571091853}
   squareSeparationX: 0.665
   squareSeparationY: 0.665

@@ -17,6 +17,7 @@ public class SudokuController : MonoBehaviour {
 	public GameObject buttonNotes;
 	public GameObject buttonErase;
 	public GameObject buttonBattle;
+	public GameObject musicObj;
 	public Camera cam;
 	public float squareSeparationX;
 	public float squareSeparationY;
@@ -180,11 +181,10 @@ public class SudokuController : MonoBehaviour {
 			}
 		}
 	}
-
-
-
+	
 	public void Battle()
 	{
+		musicObj.GetComponent<AudioSource>().Stop();
 		GameObject battle = Instantiate(battlePrefab);
 		BattleController bc = battle.GetComponentInChildren<BattleController>();
 		bc.InitializeGame(selectedSquare, this);
@@ -235,6 +235,7 @@ public class SudokuController : MonoBehaviour {
 		Destroy(battleParent);
 		canvas.SetActive(true);
 		selectedSquare.gameObject.SetActive(true);
+		//musicObj.GetComponent<AudioSource>().Play();
 	}
 
 	private void ApplySelectedAction() {
