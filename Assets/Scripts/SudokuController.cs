@@ -17,8 +17,6 @@ public class SudokuController : MonoBehaviour {
 	public GameObject buttonNotes;
 	public GameObject buttonErase;
 	public GameObject buttonBattle;
-	public GameObject[] toggleNumbers;
-	public GameObject toggleGroup;
 	public Camera cam;
 	public float squareSeparationX;
 	public float squareSeparationY;
@@ -31,16 +29,16 @@ public class SudokuController : MonoBehaviour {
 	public ButtonMode.Mode selectedMode;
 
 
-	private int[] testNumbers = 
-	{-2, 6, -1, 3, -7, -5, 8, -9, 4,
-     5, 3, 7, -8, 9, -4, -1, -6, -2,
-	 -9, 4, -8, -2, -1, 6, 3, -5, 7,
-	 -6, 9, -4, -7, 5, 1, 2, 3, 8,
-	 -8, -2, -5, -9, -4, -3, -6, -7, -1,
-	 7, 1, 3, 6, 2, -8, -9, 4, -5,
-	 3, -5, 6, 4, -8, -2, -7, 1, -9,
-	 -4, -8, -9, -1, 6, -7, 5, 2, 3,
-     1, -7, 2, -5, -3, 9, -4, 8, -6};
+	private int[] solution = 
+	{4, -6, -8, -9, 3, -1, -5, -2, -7,
+         -7, -5, -1, 6, -2, -4, 8, -3, -9,
+	 -3, -9, -2, -5, -7, -8, -4, -6, 1,
+	 -1, -3, -4, -7, 5, -6, -2, 9, -8,
+	 -2, 8, -9, -4, -1, -3, 6, -7, -5,
+	 -6, 7, -5, 2, -8, -9, -3, -1, -4,
+	 -8, -4, -6, 1, -9, 2, 7, -5, -3,
+	 5, -1, 3, -8, -6, -7, -9, 4, -2,
+         9, -2, -7, -3, -4, -5, -1, -8, -6};
 
 	/*private int[] testNumbers = 
 	{2, 6, 1, 3, 7, 5, 8, 9, 4,
@@ -53,7 +51,7 @@ public class SudokuController : MonoBehaviour {
 	 4, 8, 9, 1, 6, 7, 5, 2, 3,
      1, 7, 2, 5, 3, 9, 4, 8, -6};*/
 
-	private int[] solution;
+	//private int[] solution;
 	private bool generatedBoard;
 	private SquareController[] squares;
 	private bool notes;
@@ -62,12 +60,13 @@ public class SudokuController : MonoBehaviour {
 	private const float ZOOM_TIME = 1.0f;
 	private Vector3 cameraGoalPos;
 	private float cameraGoalSize;
-	private float cameraNormalSize = 4;
+	private float cameraNormalSize = 5;
 
 	// Use this for initialization
 	void Start () {
-		solution = new int[81];
-		GenerateBoard ();
+		/*solution = new int[81];
+		GenerateBoard ();*/
+                generatedBoard = true;
 
 		squares = new SquareController[81];
 
@@ -86,7 +85,6 @@ public class SudokuController : MonoBehaviour {
 		}
 		ProcessClick ();
 		ProcessKeyPress ();
-		UpdateBattleAvailability ();
 		UpdateConflicts ();
 		UpdateSelected ();
 		CheckForWin ();
@@ -94,6 +92,7 @@ public class SudokuController : MonoBehaviour {
 
 	public void SetLostBattle()
 	{
+		print ("lost");
 		selectedSquare.lostBattle = true;
 	}
 	
@@ -107,64 +106,40 @@ public class SudokuController : MonoBehaviour {
 		selectedMode = mode;
 		selectedSquare = null;
 		selectedNumber = SudokuNumber.NONE;
-		toggleGroup.GetComponent<ToggleGroup> ().SetAllTogglesOff ();
-
+		buttonNotes.GetComponent<ButtonMode> ().RestoreButtonPosition ();
+		buttonNumber.GetComponent<ButtonMode> ().RestoreButtonPosition ();
 
 		switch (mode) {
 		case ButtonMode.Mode.NUMBER:
 			buttonNumber.GetComponent<ButtonMode> ().selected = true;	
 			buttonNotes.GetComponent<ButtonMode> ().selected = false;	
 			buttonErase.GetComponent<ButtonMode> ().selected = false;	
-			buttonBattle.GetComponent<ButtonMode> ().selected = false;	
-			foreach (GameObject o in toggleNumbers) {
-				o.GetComponent<Toggle> ().enabled = true;
-			}
 			break;
 		case ButtonMode.Mode.NOTES:
 			buttonNumber.GetComponent<ButtonMode> ().selected = false;	
 			buttonNotes.GetComponent<ButtonMode> ().selected = true;	
 			buttonErase.GetComponent<ButtonMode> ().selected = false;	
-			buttonBattle.GetComponent<ButtonMode> ().selected = false;	
-			foreach (GameObject o in toggleNumbers) {
-				o.GetComponent<Toggle> ().enabled = true;
-			}
 			break;
 		case ButtonMode.Mode.ERASE:
 			buttonNumber.GetComponent<ButtonMode> ().selected = false;	
 			buttonNotes.GetComponent<ButtonMode> ().selected = false;	
 			buttonErase.GetComponent<ButtonMode> ().selected = true;	
-			buttonBattle.GetComponent<ButtonMode> ().selected = false;	
-			foreach (GameObject o in toggleNumbers) {
-				o.GetComponent<Toggle> ().enabled = false;
-			}
-			break;
-		case ButtonMode.Mode.BATTLE:
-			buttonNumber.GetComponent<ButtonMode> ().selected = false;	
-			buttonNotes.GetComponent<ButtonMode> ().selected = false;	
-			buttonErase.GetComponent<ButtonMode> ().selected = false;	
-			buttonBattle.GetComponent<ButtonMode> ().selected = true;	
-			foreach (GameObject o in toggleNumbers) {
-				o.GetComponent<Toggle> ().enabled = false;
-			}
 			break;
 		case ButtonMode.Mode.NONE:
 			buttonNumber.GetComponent<ButtonMode> ().selected = false;	
 			buttonNotes.GetComponent<ButtonMode> ().selected = false;	
 			buttonErase.GetComponent<ButtonMode> ().selected = false;	
-			buttonBattle.GetComponent<ButtonMode> ().selected = false;	
-			foreach (GameObject o in toggleNumbers) {
-				o.GetComponent<Toggle> ().enabled = false;
-			}
 			break;
 		}
 	}
 
 	public void SelectNumber(SudokuNumber number) {
 		selectedNumber = number;
-		selectedSquare = null;
+		ApplySelectedAction ();
 	}
 
 	public void SelectSquare(SquareController square) {
+		selectedNumber = SudokuNumber.NONE;
 		selectedSquare = square;
 		ApplySelectedAction ();
 	}
@@ -175,13 +150,7 @@ public class SudokuController : MonoBehaviour {
 			RaycastHit2D hit = Physics2D.Raycast (new Vector2(mousePosition.x, mousePosition.y), Vector2.zero);
 			if (hit != null && hit.collider != null) {
 				SquareController newSelectedSquare = hit.collider.gameObject.GetComponent<SquareController>();
-				if (!newSelectedSquare.hint && (selectedMode == ButtonMode.Mode.ERASE || 
-												(selectedMode != ButtonMode.Mode.BATTLE && 
-													selectedNumber != SudokuNumber.NONE))) {
-					SelectSquare (newSelectedSquare);
-				}
-
-				if (!newSelectedSquare.hint && newSelectedSquare.highlighted && (selectedMode == ButtonMode.Mode.BATTLE)) {
+				if (!newSelectedSquare.hint) {
 					SelectSquare (newSelectedSquare);
 				}
 			}
@@ -271,19 +240,26 @@ public class SudokuController : MonoBehaviour {
 	private void ApplySelectedAction() {
 		switch (selectedMode) {
 		case ButtonMode.Mode.NUMBER:
-			if (selectedSquare != null && selectedNumber != SudokuNumber.NONE) {
-				selectedSquare.number = selectedNumber;
-
+			if (selectedSquare != null) {
 				selectedSquare.notesVisible = false;
-				selectedSquare.numberVisible = true;
+				if (selectedNumber != SudokuNumber.NONE) {
+					selectedSquare.number = selectedNumber;
+					selectedSquare.numberVisible = true;
+				} else {
+					buttonNumber.GetComponent<ButtonMode> ().PlantButtonOnImage ();
+				}
 			}
+				
 			break;
 		case ButtonMode.Mode.NOTES:
-			if (selectedSquare != null && selectedNumber != SudokuNumber.NONE) {
-				selectedSquare.notes [(int)selectedNumber] = true;
-
-				selectedSquare.notesVisible = true;
+			if (selectedSquare != null) {
 				selectedSquare.numberVisible = false;
+				if (selectedNumber != SudokuNumber.NONE) {
+					selectedSquare.notes [(int)selectedNumber] = true;
+					selectedSquare.notesVisible = true;
+				} else {
+					buttonNotes.GetComponent<ButtonMode> ().PlantButtonOnImage ();
+				}
 			}
 			break;
 		case ButtonMode.Mode.ERASE:
@@ -292,12 +268,8 @@ public class SudokuController : MonoBehaviour {
 				selectedSquare.numberVisible = false;
 			}
 			break;
-		case ButtonMode.Mode.BATTLE:
-			if (selectedSquare != null) {
-				Battle ();
-			}
-			break;
 		}
+		UpdateBattleAvailability ();
 	}	
 
 	public SudokuNumber GetCorrectNumber() {
@@ -305,13 +277,11 @@ public class SudokuController : MonoBehaviour {
 	}
 
 	public void SetCorrectNumber() {
+		print ("setting correct number");
 		selectedSquare.number = GetCorrectNumber ();
 		selectedSquare.hint = true;
 		selectedSquare.numberVisible = true;
 		selectedSquare.notesVisible = false;
-		SquareController tempSquare = selectedSquare;
-		SelectMode (ButtonMode.Mode.NONE);
-		SelectSquare (tempSquare);
 	}
 
 	private void CheckForWin() {
@@ -334,23 +304,21 @@ public class SudokuController : MonoBehaviour {
 	}
 
 	private void UpdateBattleAvailability() {
-		foreach (SquareController square in squares) {
-			if (square.notesVisible && !square.lostBattle) {
-				int notesCount = 0;
-				for (int idx = 0; idx < 9; idx++) {
-					if (square.notes [idx]) {
-						notesCount++;
-					}
+		if (selectedMode == ButtonMode.Mode.NOTES && selectedSquare != null) {
+			int notesCount = 0;
+			for (int idx = 0; idx < 9; idx++) {
+				if (selectedSquare.notes [idx]) {
+					notesCount += 1;
 				}
+			}
 
-				if (notesCount >= 2) {
-					buttonBattle.SetActive (true);	
-					return;
-				}
+			if (!selectedSquare.lostBattle && !selectedSquare.hint && notesCount >= 2) {
+				buttonBattle.GetComponent<ButtonBattle> ().glowEnabled = true;
+				return;
 			}
 		}
 
-		buttonBattle.SetActive (false);
+		buttonBattle.GetComponent<ButtonBattle> ().glowEnabled = false;
 	}
 
 	private void UpdateConflicts() {
@@ -376,28 +344,11 @@ public class SudokuController : MonoBehaviour {
 	}
 
 	private void UpdateSelected() {
-		if (selectedMode == ButtonMode.Mode.BATTLE) {
-			foreach (SquareController square in squares) {
-				if (square.notesVisible && !square.lostBattle) {
-					int notesCount = 0;
-					for (int idx = 0; idx < 9; idx++) {
-						if (square.notes [idx]) {
-							notesCount++;
-						}
-					}
-
-					if (notesCount >= 2) {
-						square.highlighted = true;
-					}
-				}
-			}
-		} else {
-			foreach (SquareController square in squares) {
-				if (square == selectedSquare) {
-					square.highlighted = true;
-				} else {
-					square.highlighted = false;
-				}
+		foreach (SquareController square in squares) {
+			if (square == selectedSquare) {
+				square.highlighted = true;
+			} else {
+				square.highlighted = false;
 			}
 		}
 	}
@@ -495,24 +446,21 @@ public class SudokuController : MonoBehaviour {
 		while (!success) {
 			try {
 				int random = Mathf.FloorToInt (Random.value * 1464.0f);
-				string path = Application.dataPath + "/Resources/puzzles/" + random + ".txt";
-				print ("loading " + path);
-				StreamReader reader = new StreamReader (path);
+				char[] board = Resources.Load<TextAsset>("puzzles/" + random.ToString() + ".txt").text.ToCharArray();
+				print(board.Length);
 				for (int i = 0; i < 81; i++) {
-					char c = (char)reader.Read ();
+					char c = board[i];
 					solution [i] = System.Int32.Parse (new string (c, 1));
 				} 
 
-				reader.Read();
-				for (int i = 0; i < 81; i++) {
-					char c = (char)reader.Read ();
+				for (int i = 82; i < 163; i++) {
+					char c = board[i];
 					if (solution[i] == 0) {
 						solution [i] = -1 * System.Int32.Parse (new string (c, 1));
 					}
 				} 
 
 				success = true;
-				print ("loaded " + path);
 			} catch (System.Exception e) {
 				print (e.StackTrace);
 			}
