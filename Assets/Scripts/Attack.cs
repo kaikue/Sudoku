@@ -7,7 +7,13 @@ public class Attack : MonoBehaviour {
 	public int Damage = 1;
 	public Hurtable.Faction Faction;
 	public Vector3 Offset;
-	
+	public Sprite flippedSprite;
+
+	public void FlipSprite()
+	{
+		gameObject.GetComponent<SpriteRenderer>().sprite = flippedSprite;
+	}
+
 	public void StartDelayDestroy(float lifespan)
 	{
 		StartCoroutine(DelayDestroy(lifespan));

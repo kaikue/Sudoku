@@ -9,7 +9,7 @@ public class Player : Hurtable {
 	private const float SPEED = 3.0f;
 	private const float ATTACK_DISTANCE = 0.9f;
 	private const float ATTACK_OFFSET_X = -0.1f;
-	private const float ATTACK_OFFSET_Y = -0.5f;
+	private const float ATTACK_OFFSET_Y = -0.6f;
 	private const int MAX_HEALTH = 3;
 
 	private BattleController bc;
@@ -116,6 +116,10 @@ public class Player : Hurtable {
 		MyAttack = attack.GetComponent<Attack>();
 		MyAttack.Offset = attackOffset;
 		MyAttack.Faction = faction;
+		if (facing.x > 0 || facing.y > 0)
+		{
+			MyAttack.FlipSprite();
+		}
 		MyAttack.StartDelayDestroy(0.15f);
 	}
 
