@@ -30,7 +30,9 @@ Run the provided .exe file. Make sure the _data folder is next to the .exe file.
   - David Barett
 
 Other resources used:
-- Font: "Ancient" by Jorget Paulino
+- Fonts:
+  - "Ancient" by Jorget Paulino
+  - "Enchanted Land" by Dennis Ludlow
 - Music:
   - "Black Bear, My Spirit Guide" by Todd Banks
   - "Looking Back" by Todd Banks
