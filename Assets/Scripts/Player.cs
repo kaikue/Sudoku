@@ -11,7 +11,7 @@ public class Player : Hurtable {
 
 	private const float SPEED = 3.0f;
 	private const float ATTACK_DISTANCE = 0.9f;
-	private const float ATTACK_OFFSET_X = -0.1f;
+	private const float ATTACK_OFFSET_X = -0.4f;
 	private const float ATTACK_OFFSET_Y = -0.6f;
 	private const int MAX_HEALTH = 3;
 
@@ -69,7 +69,7 @@ public class Player : Hurtable {
 		float horiz = Input.GetAxisRaw("Horizontal");
 		float vert = Input.GetAxisRaw("Vertical");
 
-		if (MyAttack != null) //can't move while attacking
+		if (MyAttack != null || bc.zooming) //can't move while attacking
 		{
 			horiz = 0;
 			vert = 0;

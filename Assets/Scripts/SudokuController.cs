@@ -215,10 +215,12 @@ public class SudokuController : MonoBehaviour {
 		cam.transform.position = cameraGoalPos;
 		cam.orthographicSize = cameraBattleSize;
 		battle.transform.localScale = new Vector3(1, 1, 1);
+		battle.GetComponentInChildren<BattleController>().zooming = false;
 	}
 
 	private IEnumerator ZoomOut(BattleController bc)
 	{
+		bc.zooming = true;
 		GameObject battleParent = bc.gameObject.transform.parent.gameObject;
 		battleParent.transform.localScale = new Vector3(BATTLE_SCALE, BATTLE_SCALE, 1);
 		cam.orthographicSize = cameraNormalSize * 1.3f * BATTLE_SCALE;

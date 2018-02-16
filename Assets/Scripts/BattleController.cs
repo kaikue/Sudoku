@@ -17,7 +17,9 @@ public class BattleController : MonoBehaviour {
 	public GameObject Tower7;
 	public GameObject Tower8;
 	public GameObject Tower9;
-	
+
+	public bool zooming = true;
+
 	private SudokuController sudoku;
 	private bool paused = false;
 	private bool gameOver = false;
@@ -74,15 +76,16 @@ public class BattleController : MonoBehaviour {
 
 	public void Win()
 	{
-		if (gameOver) return;
-		gameOver = true;
-
-		gameObject.transform.parent.gameObject.GetComponentInChildren<AudioSource>().Stop();
 		SudokuNumber sNum = sudoku.GetCorrectNumber();
 		int num = (int)sNum;
 		if (sudoku.selectedSquare.notes[num]) //only win if it was a possibility
 		{
+			if (gameOver) return;
+			gameOver = true;
+
+			gameObject.transform.parent.gameObject.GetComponentInChildren<AudioSource>().Stop();
 			sudoku.gameObject.transform.parent.gameObject.SetActive(true);
+			print("won");
 			WinImage.SetActive(true);
 			WinImage.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("game_numbers/" + sNum.ToString());
 			sudoku.SetCorrectNumber ();
