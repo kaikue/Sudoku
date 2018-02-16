@@ -36,3 +36,5 @@ Other resources used:
 - Music:
   - "Black Bear, My Spirit Guide" by Todd Banks
   - "Looking Back" by Todd Banks
+- Sudoku Puzzles: https://github.com/ralli/sudoku/blob/master/data/top1465.txt
+- Sudoku Solver: https://github.com/AChep/SudokuSolver/blob/master/sudoku.py

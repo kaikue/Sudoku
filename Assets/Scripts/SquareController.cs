@@ -82,7 +82,7 @@ public class SquareController : MonoBehaviour {
 				transform.GetChild (idx + 1).gameObject.GetComponent<SpriteRenderer> ().enabled = false;						
 			}
 
-			if (numberVisible) {
+			if (numberVisible && number != SudokuNumber.NONE) {
 				if (!hint && (!numberVisibleLastFrame || number != numberLastFrame) && !hardConflicting) {
 					audioPencil.Play ();
 				} else {
@@ -111,6 +111,7 @@ public class SquareController : MonoBehaviour {
 
 		if (lostBattle) {
 			srLostIndicator.color = Color.white;
+			print ("lost");
 		} else {
 			srLostIndicator.color = Color.clear;
 		}
@@ -121,14 +122,6 @@ public class SquareController : MonoBehaviour {
 		numberLastFrame = number;
 		notesCountLastFrame = notesCount;
 
-	}
-
-	private static Color highlightColor(Color c) {
-		return new Color (c.r * 0.8f, c.g * 0.8f, c.b, c.a);
-	}
-
-	private static Color lostBattleColor(Color c) {
-		return new Color (c.r, c.g * 0.8f, c.b * 0.8f, c.a);
 	}
 
 	private void LoadNumberSprites() {

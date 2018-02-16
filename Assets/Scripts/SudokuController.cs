@@ -65,9 +65,8 @@ public class SudokuController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		/*solution = new int[81];
-		GenerateBoard ();*/
-                generatedBoard = true;
+		solution = new int[81];
+		GenerateBoard ();
 
 		squares = new SquareController[81];
 
@@ -193,6 +192,7 @@ public class SudokuController : MonoBehaviour {
 
 	public void ReturnToNormal(BattleController bc)
 	{
+		UpdateBattleAvailability ();
 		StartCoroutine(ZoomOut(bc));
 	}
 
@@ -383,6 +383,7 @@ public class SudokuController : MonoBehaviour {
 			} else {
 				square.hint = true;
 				square.numberVisible = true;
+				square.lostBattle = false;
 				square.number = (SudokuNumber)(solution [i] - 1);
 			}
 		}
@@ -446,27 +447,35 @@ public class SudokuController : MonoBehaviour {
 	private void GenerateBoard() {
 		bool success = false;
 		generatedBoard = false;
-		while (!success) {
-			try {
-				int random = Mathf.FloorToInt (Random.value * 1464.0f);
-				char[] board = Resources.Load<TextAsset>("puzzles/" + random.ToString() + ".txt").text.ToCharArray();
-				print(board.Length);
-				for (int i = 0; i < 81; i++) {
-					char c = board[i];
-					solution [i] = System.Int32.Parse (new string (c, 1));
-				} 
+		try {
+			int random = Mathf.FloorToInt (Random.value * 1464.0f);
+			char[] board = Resources.Load<TextAsset>("puzzles/" + random.ToString()).text.ToCharArray();
+			print(board.Length);
+			for (int i = 0; i < 81; i++) {
+				char c = board[i];
+				solution [i] = System.Int32.Parse (new string (c, 1));
+			} 
 
-				for (int i = 82; i < 163; i++) {
-					char c = board[i];
-					if (solution[i] == 0) {
-						solution [i] = -1 * System.Int32.Parse (new string (c, 1));
-					}
-				} 
-
-				success = true;
-			} catch (System.Exception e) {
-				print (e.StackTrace);
+			for (int i = 0; i < 81; i++) {
+				print(solution[i]);
 			}
+
+			print("middle");
+
+			for (int i = 82; i < 163; i++) {
+				char c = board[i];
+				if (solution[i - 82] == 0) {
+					solution [i - 82] = -1 * System.Int32.Parse (new string (c, 1));
+				}
+			} 
+
+			for (int i = 0; i < 81; i++) {
+				print(solution[i]);
+			}
+
+			success = true;
+		} catch (System.Exception e) {
+			print (e.StackTrace);
 		}
 
 		generatedBoard = true;
