@@ -228,6 +228,7 @@ MonoBehaviour:
   Damage: 1
   Faction: 1
   Offset: {x: 0, y: 0, z: 0}
+  flippedSprite: {fileID: 0}
 --- !u!114 &114949531357404162
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -6,11 +6,15 @@ using UnityEngine.SceneManagement;
 public class TutorialController : MonoBehaviour {
 
 	public KeyCode continueKey;
-
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKey (continueKey)) {
-			SceneManager.LoadScene ("Sudoku");
+	public GameObject loadingScreen;
+	
+	void Update ()
+	{
+		if (Input.GetKey (continueKey))
+		{
+			loadingScreen.SetActive(true);
+			gameObject.GetComponent<AudioSource>().Play();
+			SceneManager.LoadScene("Sudoku");
 		}
 	}
 }

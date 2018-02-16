@@ -152,6 +152,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114554784662364098, guid: 7fedcd9d7dbda8b4c95bea706cbdfa53,
+        type: 2}
+      propertyPath: lossClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2b69f3917ef130a46a93d6d3451d1997, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7fedcd9d7dbda8b4c95bea706cbdfa53, type: 2}
   m_IsPrefabParent: 0

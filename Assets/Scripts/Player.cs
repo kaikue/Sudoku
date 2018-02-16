@@ -5,6 +5,9 @@ using UnityEngine;
 public class Player : Hurtable {
 
 	public GameObject AttackPrefab;
+	public AudioClip attackClip;
+	public AudioClip hurtClip;
+	public AudioClip lossClip;
 
 	private const float SPEED = 3.0f;
 	private const float ATTACK_DISTANCE = 0.9f;
@@ -106,8 +109,8 @@ public class Player : Hurtable {
 		Vector3 attackOffset = facing.normalized;
 		attackOffset *= ATTACK_DISTANCE;
 		attackOffset += new Vector3(ATTACK_OFFSET_X, ATTACK_OFFSET_Y, 0);
-
-		//PlaySound("player_shoot");
+		
+		gameObject.GetComponent<AudioSource>().PlayOneShot(attackClip);
 
 		GameObject attack = Instantiate(AttackPrefab);
 		attack.transform.position = gameObject.transform.position + attackOffset;
@@ -123,8 +126,15 @@ public class Player : Hurtable {
 		MyAttack.StartDelayDestroy(0.15f);
 	}
 
+	public override void Damage(int damage)
+	{
+		base.Damage(damage);
+		gameObject.GetComponent<AudioSource>().PlayOneShot(hurtClip);
+	}
+
 	protected override void Die()
 	{
+		gameObject.GetComponent<AudioSource>().PlayOneShot(lossClip);
 		bc.Lose();
 	}
 }

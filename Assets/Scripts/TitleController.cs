@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 public class TitleController : MonoBehaviour {
 
 	public KeyCode continueKey;
-
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKey (continueKey)) {
-			SceneManager.LoadScene ("Tutorial");
+	
+	void Update ()
+	{
+		if (Input.GetKey (continueKey))
+		{
+			gameObject.GetComponent<AudioSource>().Play();
+			SceneManager.LoadScene("Tutorial");
 		}
 	}
 }
