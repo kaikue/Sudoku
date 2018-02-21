@@ -7,7 +7,6 @@ public class Player : Hurtable {
 	public GameObject AttackPrefab;
 	public AudioClip attackClip;
 	public AudioClip hurtClip;
-	public AudioClip lossClip;
 
 	private const float SPEED = 3.0f;
 	private const float ATTACK_DISTANCE = 0.9f;
@@ -137,7 +136,6 @@ public class Player : Hurtable {
 
 	protected override void Die()
 	{
-		gameObject.GetComponent<AudioSource>().PlayOneShot(lossClip);
 		bc.Lose();
 	}
 }
