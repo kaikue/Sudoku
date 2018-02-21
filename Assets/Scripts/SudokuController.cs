@@ -460,15 +460,11 @@ public class SudokuController : MonoBehaviour {
 			
 			for (int i = 0; i < boardSize; i++) {
 				char c = lines[1][i];
-				if (solution[i] == 0) {
+				if (solution [i] == 0) {
 					solution [i] = -1 * int.Parse (new string (c, 1));
 				}
-			} 
-
-			for (int i = 0; i < boardSize; i++) {
-				print(solution[i]);
 			}
-		} catch (System.Exception e) {
+		} catch (Exception e) {
 			print (e.StackTrace);
 		}
 
