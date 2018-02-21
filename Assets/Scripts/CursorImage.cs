@@ -20,10 +20,10 @@ public class CursorImage : MonoBehaviour {
 		if (selected) {
 			float xSepWorld = GameObject.Find("SudokuController").GetComponent<SudokuController>().squareSeparationX;
 			float ySepWorld = GameObject.Find("SudokuController").GetComponent<SudokuController>().squareSeparationY;
-			Vector3 sep = Camera.main.WorldToScreenPoint(new Vector3(xSepWorld, ySepWorld, 10)); //TODO: fix this???
+			Vector3 sep = Camera.main.WorldToScreenPoint(new Vector3(xSepWorld, ySepWorld, 10)); //TODO: fix this
 			float xSep = sep.x;
 			float ySep = sep.y;
-			print(xSepWorld + " " + xSep);
+			//print(xSepWorld + " " + xSep);
 
 			float baseX = Input.mousePosition.x + cursorOffset.x;
 			float clampedX = Mathf.Round(baseX / xSep) * xSep;

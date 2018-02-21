@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/TeamLogo.unity
+    guid: 68404a90bcd354caca8137aa71e288f0
+  - enabled: 1
     path: Assets/Scenes/Title.unity
     guid: bfb735ae104d04e958e5c8290b547b4a
   - enabled: 1
@@ -14,9 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sudoku.unity
     guid: aa3f7855bb4bc5a4c815cc88c46ebc79
-  - enabled: 0
-    path: Assets/Scenes/Battle.unity
-    guid: a8ebc76b7f267524c8bca0c3de54bc44
   - enabled: 1
     path: Assets/Scenes/EndGame.unity
     guid: 9b9a52a08b0c3498ca607bfcda896715

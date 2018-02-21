@@ -11,13 +11,16 @@ public class SudokuController : MonoBehaviour {
 	public GameObject squarePrefab;
 	public GameObject battlePrefab;
 	public GameObject board;
-	public GameObject winText;
 	public GameObject parent;
 	public GameObject canvas;
 	public GameObject buttonNumber;
 	public GameObject buttonNotes;
 	public GameObject buttonErase;
 	public GameObject buttonBattle;
+	public GameObject textNumber;
+	public GameObject textNotes;
+	public GameObject textErase;
+	public GameObject textBattle;
 	public GameObject musicObj;
 	public Camera cam;
 	public float squareSeparationX;
@@ -75,8 +78,6 @@ public class SudokuController : MonoBehaviour {
 		InitializeSquares ();
 
 		SelectMode (ButtonMode.Mode.NONE);
-
-		winText.GetComponent<Text> ().text = "";
 	}
 	
 	// Update is called once per frame
@@ -132,8 +133,12 @@ public class SudokuController : MonoBehaviour {
 			buttonErase.GetComponent<ButtonMode> ().selected = false;	
 			break;
 		}
-	}
 
+		textNumber.SetActive(!buttonNumber.GetComponent<ButtonMode>().selected);
+		textNotes.SetActive(!buttonNotes.GetComponent<ButtonMode>().selected);
+		textErase.SetActive(!buttonErase.GetComponent<ButtonMode>().selected);
+	}
+	
 	public void SelectNumber(SudokuNumber number) {
 		selectedNumber = number;
 		ApplySelectedAction ();
@@ -318,11 +323,13 @@ public class SudokuController : MonoBehaviour {
 
 			if (!selectedSquare.lostBattle && !selectedSquare.hint && notesCount >= 2) {
 				buttonBattle.GetComponent<ButtonBattle> ().glowEnabled = true;
+				textBattle.SetActive(true);
 				return;
 			}
 		}
 
 		buttonBattle.GetComponent<ButtonBattle> ().glowEnabled = false;
+		textBattle.SetActive(false);
 	}
 
 	private void UpdateConflicts() {

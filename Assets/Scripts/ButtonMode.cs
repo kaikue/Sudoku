@@ -34,6 +34,7 @@ public class ButtonMode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 	}
 
 	void ButtonOnClick() {
+		GetComponent<AudioSource>().Play();
 		selected = !selected;
 		if (selected) {
 			gameController.SelectMode (mode);

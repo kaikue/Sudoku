@@ -8,7 +8,7 @@ Run the provided .exe file. Make sure the _data folder is next to the .exe file.
 
 **Release Notes**
 
-- Final
+- Interim 2
   - Improved art and sound
   - Reworked Sudoku interface
   - Redesigned minigame to be melee-focused
@@ -36,5 +36,7 @@ Other resources used:
 - Music:
   - "Black Bear, My Spirit Guide" by Todd Banks
   - "Looking Back" by Todd Banks
+- Sound:
+  - https://freesound.org/people/RSilveira_88/sounds/216239/
 - Sudoku Puzzles: https://github.com/ralli/sudoku/blob/master/data/top1465.txt
 - Sudoku Solver: https://github.com/AChep/SudokuSolver/blob/master/sudoku.py
