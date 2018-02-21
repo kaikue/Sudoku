@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class SudokuController : MonoBehaviour {
 
@@ -445,35 +446,28 @@ public class SudokuController : MonoBehaviour {
 	}
 
 	private void GenerateBoard() {
-		bool success = false;
 		generatedBoard = false;
 		try {
-			int random = Mathf.FloorToInt (Random.value * 1464.0f);
-			char[] board = Resources.Load<TextAsset>("puzzles/" + random.ToString()).text.ToCharArray();
-			print(board.Length);
-			for (int i = 0; i < 81; i++) {
-				char c = board[i];
-				solution [i] = System.Int32.Parse (new string (c, 1));
+			int random = Mathf.FloorToInt (UnityEngine.Random.value * 1464.0f);
+			string file = Resources.Load<TextAsset>("puzzles/" + random.ToString()).text;
+			string[] lines = file.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+			int boardSize = 9 * 9;
+
+			for (int i = 0; i < boardSize; i++) {
+				char c = lines[0][i];
+				solution [i] = int.Parse (new string (c, 1));
 			} 
-
-			for (int i = 0; i < 81; i++) {
-				print(solution[i]);
-			}
-
-			print("middle");
-
-			for (int i = 82; i < 163; i++) {
-				char c = board[i];
-				if (solution[i - 82] == 0) {
-					solution [i - 82] = -1 * System.Int32.Parse (new string (c, 1));
+			
+			for (int i = 0; i < boardSize; i++) {
+				char c = lines[1][i];
+				if (solution[i] == 0) {
+					solution [i] = -1 * int.Parse (new string (c, 1));
 				}
 			} 
 
-			for (int i = 0; i < 81; i++) {
+			for (int i = 0; i < boardSize; i++) {
 				print(solution[i]);
 			}
-
-			success = true;
 		} catch (System.Exception e) {
 			print (e.StackTrace);
 		}
