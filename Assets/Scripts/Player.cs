@@ -80,10 +80,12 @@ public class Player : Hurtable {
 
 		if (vert != 0)
 		{
+			bc.Instructions.SetActive(false);
 			facing = new Vector2(0, vert < 0 ? -1 : 1);
 		}
 		else if (horiz != 0)
 		{
+			bc.Instructions.SetActive(false);
 			facing = new Vector2(horiz < 0 ? -1 : 1, 0);
 		}
 
@@ -91,6 +93,7 @@ public class Player : Hurtable {
 
 		if (attackQueued)
 		{
+			bc.Instructions.SetActive(false);
 			attackQueued = false;
 			if (MyAttack == null)
 			{

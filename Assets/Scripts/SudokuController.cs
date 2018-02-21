@@ -204,6 +204,7 @@ public class SudokuController : MonoBehaviour {
 
 	private IEnumerator ZoomIn(GameObject battle)
 	{
+		battle.GetComponentInChildren<BattleController>().zooming = true;
 		selectedSquare.gameObject.SetActive(false);
 		canvas.SetActive(false);
 		battle.transform.position = selectedSquare.transform.position;
