@@ -10,12 +10,16 @@ public class CursorImage : MonoBehaviour {
 	public Material transparentMaterial;
 
 	private RectTransform rectTransform;
+	private ButtonMode parent;
 	private Material normalMaterial;
+	private Vector2 actualCursorOffset;
 
 	// Use this for initialization
 	void Start () {
 		rectTransform = GetComponent<Image> ().rectTransform;
 		normalMaterial = GetComponent<Image>().material;
+		parent = transform.parent.gameObject.GetComponent<ButtonMode> ();
+		actualCursorOffset = new Vector2 (cursorOffset.x * GetComponent<Image> ().flexibleWidth, cursorOffset.y * GetComponent<Image>().flexibleHeight);
 	}
 	
 	// Update is called once per frame
@@ -24,24 +28,20 @@ public class CursorImage : MonoBehaviour {
 		SudokuController sc = GameObject.Find("SudokuController").GetComponent<SudokuController>();
 		if (selected) {
 			GetComponent<Image>().material = transparentMaterial;
+			Camera cam = GameObject.FindGameObjectWithTag ("MainCamera").GetComponent<Camera> ();
 
-			float xSepWorld = sc.squareSeparationX;
-			float ySepWorld = sc.squareSeparationY;
-			Vector3 sep = Camera.main.WorldToScreenPoint(new Vector3(xSepWorld, ySepWorld, 10)); //TODO: fix this
-			float xSep = sep.x;
-			float ySep = sep.y;
-			//print(xSepWorld + " " + xSep);
-
-			float baseX = Input.mousePosition.x + cursorOffset.x;
-			float clampedX = Mathf.Round(baseX / xSep) * xSep;
-			float baseY = Input.mousePosition.y + cursorOffset.y;
-			float clampedY = Mathf.Round(baseY / ySep) * ySep;
-			//rectTransform.position = new Vector3(clampedX, clampedY, Input.mousePosition.z); //TODO uncomment when it works
-			rectTransform.position = new Vector3(baseX, baseY, Input.mousePosition.z); //TODO remove
+			Vector3 targetPositionWS;
+			if (parent.snapped) {
+				targetPositionWS = cam.ScreenToWorldPoint(parent.snapPosition);
+			} else {
+				targetPositionWS = cam.ScreenToWorldPoint(Input.mousePosition);
+			}
+			Vector3 newPosWS = new Vector3 (targetPositionWS.x + actualCursorOffset.x, targetPositionWS.y + actualCursorOffset.y, transform.parent.transform.position.z);
+			rectTransform.position = cam.WorldToScreenPoint (newPosWS);
 		} else {
 			GetComponent<Image>().material = normalMaterial;
 			rectTransform.position = transform.parent.transform.position;
-			sc.RefreshButtonLabels();
+			sc.RefreshButtonLabels ();
 		}
 	}
 }

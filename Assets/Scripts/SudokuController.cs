@@ -160,14 +160,51 @@ public class SudokuController : MonoBehaviour {
 	private void ProcessClick() {
 		if (Input.GetMouseButtonDown (0)) {
 			Vector3 mousePosition = cam.ScreenToWorldPoint (Input.mousePosition);
-			RaycastHit2D hit = Physics2D.Raycast (new Vector2(mousePosition.x, mousePosition.y), Vector2.zero);
+			RaycastHit2D hit = Physics2D.Raycast (new Vector2 (mousePosition.x, mousePosition.y), Vector2.zero);
 			if (hit != null && hit.collider != null) {
-				SquareController newSelectedSquare = hit.collider.gameObject.GetComponent<SquareController>();
+				SquareController newSelectedSquare = hit.collider.gameObject.GetComponent<SquareController> ();
 				if (!newSelectedSquare.hint) {
 					SelectSquare (newSelectedSquare);
 				}
 			}
+		} else {
+			Vector3 mousePosition = cam.ScreenToWorldPoint (Input.mousePosition);
+			RaycastHit2D hit = Physics2D.Raycast (new Vector2 (mousePosition.x, mousePosition.y), Vector2.zero);
+			if (hit != null && hit.collider != null) {
+				SquareController hoveredSquare = hit.collider.gameObject.GetComponent<SquareController> ();
+				if (!hoveredSquare.hint) {
+					SnapToSquare (hoveredSquare.gameObject);
+				}
+			} else {
+				UnSnap ();
+			}
 		}
+	}
+
+	private void SnapToSquare (GameObject hoverSquare) {
+		Vector3 center = cam.WorldToScreenPoint(hoverSquare.GetComponent<BoxCollider2D> ().bounds.center);
+
+		switch (selectedMode) {
+		case ButtonMode.Mode.NUMBER:
+			buttonNumber.GetComponent<ButtonMode> ().snapPosition = center;
+			buttonNumber.GetComponent<ButtonMode> ().snapped = true;
+			break;
+		case ButtonMode.Mode.NOTES:
+			buttonNotes.GetComponent<ButtonMode> ().snapPosition = center;
+			buttonNotes.GetComponent<ButtonMode> ().snapped = true;
+			break;
+		case ButtonMode.Mode.ERASE:
+			buttonErase.GetComponent<ButtonMode> ().snapPosition = center;
+			buttonErase.GetComponent<ButtonMode> ().snapped = true;
+			break;
+		}
+	}
+
+	private void UnSnap() {
+		buttonNumber.GetComponent<ButtonMode> ().snapped = false;
+		buttonNotes.GetComponent<ButtonMode> ().snapped = false;
+		buttonErase.GetComponent<ButtonMode> ().snapped = false;
+
 	}
 
 	private void ProcessKeyPress() {

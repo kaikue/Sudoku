@@ -329,6 +329,16 @@ Prefab:
       propertyPath: m_Name
       value: ButtonNumber
       objectReference: {fileID: 0}
+    - target: {fileID: 114338513777819452, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: cursorOffset.x
+      value: -0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114338513777819452, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: cursorOffset.y
+      value: -1.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f976895f3082342088a9b7f2a0f8a7f1, type: 2}
   m_IsPrefabParent: 0
@@ -1785,12 +1795,12 @@ Prefab:
     - target: {fileID: 114338513777819452, guid: f976895f3082342088a9b7f2a0f8a7f1,
         type: 2}
       propertyPath: cursorOffset.x
-      value: -40
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 114338513777819452, guid: f976895f3082342088a9b7f2a0f8a7f1,
         type: 2}
       propertyPath: cursorOffset.y
-      value: 90
+      value: -1.1
       objectReference: {fileID: 0}
     - target: {fileID: 1903438454646802, guid: f976895f3082342088a9b7f2a0f8a7f1, type: 2}
       propertyPath: m_Name
@@ -2000,12 +2010,12 @@ Prefab:
     - target: {fileID: 114338513777819452, guid: f976895f3082342088a9b7f2a0f8a7f1,
         type: 2}
       propertyPath: cursorOffset.x
-      value: 75
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 114338513777819452, guid: f976895f3082342088a9b7f2a0f8a7f1,
         type: 2}
       propertyPath: cursorOffset.y
-      value: -75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224259061657720778, guid: f976895f3082342088a9b7f2a0f8a7f1,
         type: 2}

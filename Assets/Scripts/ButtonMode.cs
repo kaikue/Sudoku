@@ -16,6 +16,8 @@ public class ButtonMode : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
 	public bool selected;
 	public Mode mode;
+	public Vector3 snapPosition;
+	public bool snapped;
 	private SudokuController gameController;
 	private CursorImage cursorImage;
 	private Image glow;
