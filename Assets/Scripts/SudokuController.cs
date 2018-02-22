@@ -297,10 +297,10 @@ public class SudokuController : MonoBehaviour {
 		switch (selectedMode) {
 		case ButtonMode.Mode.NUMBER:
 			if (selectedSquare != null) {
-				selectedSquare.notesVisible = false;
 				if (selectedNumber != SudokuNumber.NONE) {
 					selectedSquare.number = selectedNumber;
 					selectedSquare.numberVisible = true;
+					selectedSquare.notesVisible = false;
 				} else {
 					buttonNumber.GetComponent<ButtonMode> ().PlantButtonOnImage ();
 				}
