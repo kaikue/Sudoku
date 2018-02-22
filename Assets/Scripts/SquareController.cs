@@ -17,7 +17,9 @@ public enum SudokuNumber {
 
 public class SquareController : MonoBehaviour {
 	private readonly static Color COLOR_NUMBER_HINT = new Color (1.0f, 1.0f, 1.0f, 1.0f);
-	private readonly static Color COLOR_NUMBER_NOT_HINT = new Color (0.7f, 0.7f, 0.7f, 0.75f);
+	private readonly static Color COLOR_NUMBER_NOT_HINT = new Color (0.2f, 0.2f, 0.6f, 1.0f);
+	private readonly static Color COLOR_NUMBER_HARD_CONFLICTING = new Color (0.6f, 0.2f, 0.2f, 1.0f);
+	private readonly static Color COLOR_NUMBER_SOFT_CONFLICTING = new Color (0.6f, 0.2f, 0.2f, 0.8f);
 
 	// State variables
 	public AudioSource audioFail;
@@ -104,10 +106,10 @@ public class SquareController : MonoBehaviour {
 			if (!hardConflictingLastFrame) {
 				audioFail.Play ();
 			}
-			//TODO: Make number red
+			srNumber.color = COLOR_NUMBER_HARD_CONFLICTING;
 
 		} else if (softConflicting) {
-			//TODO: Make number gold
+			srNumber.color = COLOR_NUMBER_SOFT_CONFLICTING;
 		}
 
 		if (lostBattle) {
