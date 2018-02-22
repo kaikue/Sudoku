@@ -1,20 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ButtonBattle : MonoBehaviour {
+public class ButtonBattle : MonoBehaviour , IPointerEnterHandler, IPointerExitHandler {
 
 	public bool glowEnabled;
 
 	private SudokuController gameController;
 	private Image glow;
+	private bool showInstructions;
 
 	// Use this for initialization
 	void Start () {
 		gameController = GameObject.FindGameObjectWithTag ("SudokuController").GetComponent<SudokuController> ();	
 
 		glow = transform.GetChild (0).gameObject.GetComponent<Image> ();
+		showInstructions = true;
+		transform.GetChild (2).gameObject.SetActive (false);
 		GetComponent<Button> ().onClick.AddListener (OnButtonClick);
 	}
 	
@@ -29,7 +33,19 @@ public class ButtonBattle : MonoBehaviour {
 
 	void OnButtonClick() {
 		if (glowEnabled) {
+			showInstructions = false;
+			transform.GetChild (2).gameObject.SetActive (false);
 			gameController.Battle ();
 		}
+	}
+
+	public void OnPointerEnter(PointerEventData d) {
+		if (showInstructions) {
+			transform.GetChild (2).gameObject.SetActive (true);
+		}		
+	}
+
+	public void OnPointerExit(PointerEventData d) {
+		transform.GetChild (2).gameObject.SetActive (false);
 	}
 }

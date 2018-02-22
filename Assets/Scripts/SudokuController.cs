@@ -133,6 +133,7 @@ public class SudokuController : MonoBehaviour {
 			buttonNumber.GetComponent<ButtonMode> ().selected = false;	
 			buttonNotes.GetComponent<ButtonMode> ().selected = false;	
 			buttonErase.GetComponent<ButtonMode> ().selected = false;	
+			UpdateBattleAvailability ();
 			break;
 		}
 
@@ -141,9 +142,9 @@ public class SudokuController : MonoBehaviour {
 
 	public void RefreshButtonLabels()
 	{
-		textNumber.SetActive(!buttonNumber.GetComponent<ButtonMode>().selected);
-		textNotes.SetActive(!buttonNotes.GetComponent<ButtonMode>().selected);
-		textErase.SetActive(!buttonErase.GetComponent<ButtonMode>().selected);
+		textNumber.SetActive (selectedMode != ButtonMode.Mode.NUMBER);
+		textNotes.SetActive (selectedMode != ButtonMode.Mode.NOTES);
+		textErase.SetActive (selectedMode != ButtonMode.Mode.ERASE);
 	}
 	
 	public void SelectNumber(SudokuNumber number) {

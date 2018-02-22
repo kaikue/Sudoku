@@ -12,7 +12,7 @@ public class TitleController : MonoBehaviour {
 		if (Input.GetKey (continueKey))
 		{
 			gameObject.GetComponent<AudioSource>().Play();
-			SceneManager.LoadScene("Tutorial");
+			SceneManager.LoadScene("Sudoku");
 		}
 	}
 }

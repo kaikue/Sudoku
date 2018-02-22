@@ -464,15 +464,42 @@ Prefab:
       propertyPath: m_Name
       value: ButtonNumber
       objectReference: {fileID: 0}
-    - target: {fileID: 114338513777819452, guid: f976895f3082342088a9b7f2a0f8a7f1,
+    - target: {fileID: 224850377596610166, guid: f976895f3082342088a9b7f2a0f8a7f1,
         type: 2}
-      propertyPath: cursorOffset.x
-      value: -0.6
+      propertyPath: m_AnchoredPosition.x
+      value: -237.82553
       objectReference: {fileID: 0}
-    - target: {fileID: 114338513777819452, guid: f976895f3082342088a9b7f2a0f8a7f1,
+    - target: {fileID: 224850377596610166, guid: f976895f3082342088a9b7f2a0f8a7f1,
         type: 2}
-      propertyPath: cursorOffset.y
-      value: -1.5
+      propertyPath: m_AnchoredPosition.y
+      value: -55.49221
+      objectReference: {fileID: 0}
+    - target: {fileID: 114351158634314032, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_Text
+      value: "Answers Quill\n\nUse this quill to enter a number into an empty square
+        or change a number you already entered. \n\nFirst, select the quill, then
+        select a square, then type the number you want to enter."
+      objectReference: {fileID: 0}
+    - target: {fileID: 224850377596610166, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 224610914546432256, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 135
+      objectReference: {fileID: 0}
+    - target: {fileID: 224610914546432256, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 290
+      objectReference: {fileID: 0}
+    - target: {fileID: 224850377596610166, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f976895f3082342088a9b7f2a0f8a7f1, type: 2}
@@ -507,10 +534,10 @@ RectTransform:
   m_Father: {fileID: 1460728553}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 418.64, y: -239}
-  m_SizeDelta: {x: -909.72, y: -511.61}
+  m_SizeDelta: {x: 512.28, y: 88.390015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &261784467
 MonoBehaviour:
@@ -854,10 +881,10 @@ RectTransform:
   m_Father: {fileID: 1460728553}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 472.5447, y: 278.20502}
-  m_SizeDelta: {x: -892.49, y: -511.6}
+  m_SizeDelta: {x: 529.51, y: 88.399994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1093217520
 MonoBehaviour:
@@ -1001,10 +1028,10 @@ RectTransform:
   m_Father: {fileID: 1460728553}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 373.84473, y: 247.81496}
-  m_SizeDelta: {x: -909.72, y: -511.61}
+  m_SizeDelta: {x: 512.28, y: 88.390015}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1202479755
 MonoBehaviour:
@@ -1491,6 +1518,160 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1649366297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1649366298}
+  - component: {fileID: 1649366300}
+  - component: {fileID: 1649366299}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1649366298
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1649366297}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1730243761}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 135, y: 420}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1649366299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1649366297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 9232ec0f4b18ae84ab3e0eeace56629a, type: 3}
+    m_FontSize: 21
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Battle Mode
+
+
+    When the sword glows, select it to battle for an answer. Your enemies are the
+    notes you entered in the currently selected square.
+
+
+    If you defeat all of the numbers and one of them is the right answer, the answer
+    will be filled in for you.
+
+
+    You can only battle for a square once!'
+--- !u!222 &1649366300
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1649366297}
+--- !u!1 &1730243760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1730243761}
+  - component: {fileID: 1730243763}
+  - component: {fileID: 1730243762}
+  m_Layer: 5
+  m_Name: Instructions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1730243761
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1730243760}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1649366298}
+  m_Father: {fileID: 1732057679}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 143, y: 10.645882}
+  m_SizeDelta: {x: 150, y: 420}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1730243762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1730243760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 0.5882353, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1730243763
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1730243760}
 --- !u!1 &1732057678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,6 +1703,7 @@ RectTransform:
   m_Children:
   - {fileID: 768288887}
   - {fileID: 119154987}
+  - {fileID: 1730243761}
   m_Father: {fileID: 1460728553}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2027,6 +2209,49 @@ Prefab:
       propertyPath: transparentMaterial
       value: 
       objectReference: {fileID: 2100000, guid: a0d82cba71bcd344e8e333534af75444, type: 2}
+    - target: {fileID: 224850377596610166, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -144.1128
+      objectReference: {fileID: 0}
+    - target: {fileID: 224850377596610166, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -33
+      objectReference: {fileID: 0}
+    - target: {fileID: 224850377596610166, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 114351158634314032, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Notes Quill
+
+
+        Use this quill to write notes in a square to help you solve the puzzle or
+        to battle for the answer.
+
+
+        First, select the quill, then select a square, then type the numbers you''d
+        like to add to your notes.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 224610914546432256, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 280
+      objectReference: {fileID: 0}
+    - target: {fileID: 224850377596610166, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 290
+      objectReference: {fileID: 0}
+    - target: {fileID: 224610914546432256, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 135
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f976895f3082342088a9b7f2a0f8a7f1, type: 2}
   m_IsPrefabParent: 0
@@ -2198,6 +2423,43 @@ Prefab:
       propertyPath: transparentMaterial
       value: 
       objectReference: {fileID: 2100000, guid: a0d82cba71bcd344e8e333534af75444, type: 2}
+    - target: {fileID: 224850377596610166, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 224850377596610166, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 224850377596610166, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -193.48737
+      objectReference: {fileID: 0}
+    - target: {fileID: 224850377596610166, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 224610914546432256, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 135
+      objectReference: {fileID: 0}
+    - target: {fileID: 224610914546432256, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 290
+      objectReference: {fileID: 0}
+    - target: {fileID: 114351158634314032, guid: f976895f3082342088a9b7f2a0f8a7f1,
+        type: 2}
+      propertyPath: m_Text
+      value: "Cloth\n\nUse this cloth to erase answers or notes you have written down.
+        \n\nFirst, select the cloth, then select a square to erase its contents. You
+        cannot erase squares that are filled in at the start of the puzzle."
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f976895f3082342088a9b7f2a0f8a7f1, type: 2}
   m_IsPrefabParent: 0
