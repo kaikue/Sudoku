@@ -484,7 +484,7 @@ public class SudokuController : MonoBehaviour {
 
 		for (int y = startY; y < endY; y++) {
 			for (int x = startX; x < endX; x++) {
-				group.Add (squares [9 * startY + startX].GetComponent<SquareController> ());
+				group.Add (squares [9 * y + x].GetComponent<SquareController> ());
 			}	
 		}
 
