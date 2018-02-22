@@ -152,6 +152,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 82069917092819052, guid: 2914de893fc1347668a03cb6605a38db,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 82910043011141150, guid: 2914de893fc1347668a03cb6605a38db,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 82880990615551310, guid: 2914de893fc1347668a03cb6605a38db,
+        type: 2}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2914de893fc1347668a03cb6605a38db, type: 2}
   m_IsPrefabParent: 0
@@ -324,16 +339,6 @@ Prefab:
       propertyPath: m_Name
       value: ButtonNumber
       objectReference: {fileID: 0}
-    - target: {fileID: 114590013162891434, guid: f976895f3082342088a9b7f2a0f8a7f1,
-        type: 2}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 114338513777819452, guid: f976895f3082342088a9b7f2a0f8a7f1,
-        type: 2}
-      propertyPath: transparentMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: a0d82cba71bcd344e8e333534af75444, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f976895f3082342088a9b7f2a0f8a7f1, type: 2}
   m_IsPrefabParent: 0
@@ -716,8 +721,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 472.54477, y: 278.19995}
-  m_SizeDelta: {x: -909.72, y: -511.61}
+  m_AnchoredPosition: {x: 472.5447, y: 278.20502}
+  m_SizeDelta: {x: -892.49, y: -511.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1093217520
 MonoBehaviour:
@@ -751,7 +756,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Guesses
+  m_Text: Answers
 --- !u!222 &1093217521
 CanvasRenderer:
   m_ObjectHideFlags: 0
