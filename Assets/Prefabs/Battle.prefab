@@ -2551,6 +2551,7 @@ MonoBehaviour:
   attackClip: {fileID: 8300000, guid: 65cd76c9f0d72d84e949beb2471c7ee8, type: 3}
   hurtClip: {fileID: 8300000, guid: 5a52190d264bef042960f17094565c59, type: 3}
   enemyClip: {fileID: 8300000, guid: e418ff24980e2744db2243eea92dcafc, type: 3}
+  towerClip: {fileID: 8300000, guid: e8d426b858e1b504f83baa17987f7ee0, type: 3}
 --- !u!114 &114605257824168104
 MonoBehaviour:
   m_ObjectHideFlags: 1

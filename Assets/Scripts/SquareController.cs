@@ -112,7 +112,6 @@ public class SquareController : MonoBehaviour {
 
 		if (lostBattle) {
 			srLostIndicator.color = Color.white;
-			print ("lost");
 		} else {
 			srLostIndicator.color = Color.clear;
 		}

@@ -61,6 +61,7 @@ public class Tower : Hurtable {
 		{
 			sr.sprite = hurt3Sprite;
 		}
+		GameObject.Find("Player").GetComponent<Player>().TowerHitSound();
 	}
 
 	protected override void Die()

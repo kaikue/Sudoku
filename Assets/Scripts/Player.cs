@@ -8,6 +8,7 @@ public class Player : Hurtable {
 	public AudioClip attackClip;
 	public AudioClip hurtClip;
 	public AudioClip enemyClip;
+	public AudioClip towerClip;
 
 	private const float SPEED = 3.0f;
 	private const float ATTACK_DISTANCE = 0.9f;
@@ -30,7 +31,7 @@ public class Player : Hurtable {
 		faction = Faction.GOOD;
 		health = MAX_HEALTH;
 	}
-	
+
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Space) ||
@@ -112,7 +113,7 @@ public class Player : Hurtable {
 		Vector3 attackOffset = facing.normalized;
 		attackOffset *= ATTACK_DISTANCE;
 		attackOffset += new Vector3(ATTACK_OFFSET_X, ATTACK_OFFSET_Y, 0);
-		
+
 		PlayAudioClip(attackClip);
 
 		GameObject attack = Instantiate(AttackPrefab);
@@ -139,6 +140,11 @@ public class Player : Hurtable {
 	public void EnemyDieSound()
 	{
 		PlayAudioClip(enemyClip);
+	}
+
+	public void TowerHitSound()
+	{
+		PlayAudioClip(towerClip);
 	}
 
 	public override void Damage(int damage)

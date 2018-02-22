@@ -10,7 +10,7 @@ Run the provided .exe file. Make sure the _data folder is next to the .exe file.
 
 - Final
   - Improved sound balance
-  - New sounds for pick up tool, erase, attack, wrong answer, enemy death
+  - New sounds for pick up tool, erase, attack, wrong answer, enemy death, tower hit
   - Randomize pitch of sounds in battle
 
 - Interim 2
@@ -47,5 +47,6 @@ Other resources used:
   - Erase: https://freesound.org/people/LiamG_SFX/sounds/322149/
   - Attack: https://freesound.org/people/InspectorJ/sounds/394418/
   - Enemy: https://freesound.org/people/Reitanna/sounds/241479/
+  - Tower: https://freesound.org/people/Cheddababy/sounds/325909/
 - Sudoku Puzzles: https://github.com/ralli/sudoku/blob/master/data/top1465.txt
 - Sudoku Solver: https://github.com/AChep/SudokuSolver/blob/master/sudoku.py
