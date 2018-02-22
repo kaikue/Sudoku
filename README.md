@@ -11,6 +11,7 @@ Run the provided .exe file. Make sure the _data folder is next to the .exe file.
 - Final
   - Improved sound balance
   - New sounds for pick up tool, erase, attack, wrong answer, enemy death
+  - Randomize pitch of sounds in battle
 
 - Interim 2
   - Improved art and sound
@@ -43,6 +44,7 @@ Other resources used:
 - Sound:
   - Pick up tool: https://freesound.org/people/RSilveira_88/sounds/216239/
   - Wrong answer: https://freesound.org/people/mikejedw/sounds/451/
+  - Erase: https://freesound.org/people/LiamG_SFX/sounds/322149/
   - Attack: https://freesound.org/people/InspectorJ/sounds/394418/
   - Enemy: https://freesound.org/people/Reitanna/sounds/241479/
 - Sudoku Puzzles: https://github.com/ralli/sudoku/blob/master/data/top1465.txt

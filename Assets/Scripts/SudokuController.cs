@@ -285,6 +285,7 @@ public class SudokuController : MonoBehaviour {
 			if (selectedSquare != null) {
 				selectedSquare.notesVisible = false;
 				selectedSquare.numberVisible = false;
+				selectedSquare.audioErase.Play();
 			}
 			break;
 		}

@@ -23,6 +23,7 @@ public class SquareController : MonoBehaviour {
 	public AudioSource audioFail;
 	public AudioSource audioPencil;
 	public AudioSource audioNote;
+	public AudioSource audioErase;
 	public SudokuNumber number;
 	public bool[] notes;
 	public bool numberVisible;

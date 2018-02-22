@@ -113,7 +113,7 @@ public class Player : Hurtable {
 		attackOffset *= ATTACK_DISTANCE;
 		attackOffset += new Vector3(ATTACK_OFFSET_X, ATTACK_OFFSET_Y, 0);
 		
-		gameObject.GetComponent<AudioSource>().PlayOneShot(attackClip);
+		PlayAudioClip(attackClip);
 
 		GameObject attack = Instantiate(AttackPrefab);
 		attack.transform.position = gameObject.transform.position + attackOffset;
@@ -129,18 +129,22 @@ public class Player : Hurtable {
 		MyAttack.StartDelayDestroy(0.15f);
 	}
 
-	public void EnemyDieSound()
+	public void PlayAudioClip(AudioClip clip)
 	{
 		AudioSource src = gameObject.GetComponent<AudioSource>();
 		src.pitch = Random.Range(0.7f, 1.3f);
-		src.PlayOneShot(enemyClip);
-		//src.pitch = 1;
+		src.PlayOneShot(clip);
+	}
+
+	public void EnemyDieSound()
+	{
+		PlayAudioClip(enemyClip);
 	}
 
 	public override void Damage(int damage)
 	{
 		base.Damage(damage);
-		gameObject.GetComponent<AudioSource>().PlayOneShot(hurtClip);
+		PlayAudioClip(hurtClip);
 	}
 
 	protected override void Die()
