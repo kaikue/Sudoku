@@ -7,6 +7,7 @@ public class Player : Hurtable {
 	public GameObject AttackPrefab;
 	public AudioClip attackClip;
 	public AudioClip hurtClip;
+	public AudioClip enemyClip;
 
 	private const float SPEED = 3.0f;
 	private const float ATTACK_DISTANCE = 0.9f;
@@ -126,6 +127,14 @@ public class Player : Hurtable {
 			MyAttack.FlipSprite();
 		}
 		MyAttack.StartDelayDestroy(0.15f);
+	}
+
+	public void EnemyDieSound()
+	{
+		AudioSource src = gameObject.GetComponent<AudioSource>();
+		src.pitch = Random.Range(0.7f, 1.3f);
+		src.PlayOneShot(enemyClip);
+		//src.pitch = 1;
 	}
 
 	public override void Damage(int damage)

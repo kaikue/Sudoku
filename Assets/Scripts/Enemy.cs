@@ -30,6 +30,7 @@ public class Enemy : Hurtable {
 
 	protected override void Die()
 	{
+		player.GetComponent<Player>().EnemyDieSound();
 		Destroy(gameObject);
 	}
 }
