@@ -7,19 +7,26 @@ public class CursorImage : MonoBehaviour {
 
 	public bool selected;
 	public Vector2 cursorOffset;
+	public Material transparentMaterial;
 
 	private RectTransform rectTransform;
+	private Material normalMaterial;
 
 	// Use this for initialization
 	void Start () {
 		rectTransform = GetComponent<Image> ().rectTransform;
+		normalMaterial = GetComponent<Image>().material;
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
+		SudokuController sc = GameObject.Find("SudokuController").GetComponent<SudokuController>();
 		if (selected) {
-			float xSepWorld = GameObject.Find("SudokuController").GetComponent<SudokuController>().squareSeparationX;
-			float ySepWorld = GameObject.Find("SudokuController").GetComponent<SudokuController>().squareSeparationY;
+			GetComponent<Image>().material = transparentMaterial;
+
+			float xSepWorld = sc.squareSeparationX;
+			float ySepWorld = sc.squareSeparationY;
 			Vector3 sep = Camera.main.WorldToScreenPoint(new Vector3(xSepWorld, ySepWorld, 10)); //TODO: fix this
 			float xSep = sep.x;
 			float ySep = sep.y;
@@ -32,7 +39,9 @@ public class CursorImage : MonoBehaviour {
 			//rectTransform.position = new Vector3(clampedX, clampedY, Input.mousePosition.z); //TODO uncomment when it works
 			rectTransform.position = new Vector3(baseX, baseY, Input.mousePosition.z); //TODO remove
 		} else {
+			GetComponent<Image>().material = normalMaterial;
 			rectTransform.position = transform.parent.transform.position;
+			sc.RefreshButtonLabels();
 		}
 	}
 }

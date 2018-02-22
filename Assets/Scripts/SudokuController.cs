@@ -136,6 +136,11 @@ public class SudokuController : MonoBehaviour {
 			break;
 		}
 
+		RefreshButtonLabels();
+	}
+
+	public void RefreshButtonLabels()
+	{
 		textNumber.SetActive(!buttonNumber.GetComponent<ButtonMode>().selected);
 		textNotes.SetActive(!buttonNotes.GetComponent<ButtonMode>().selected);
 		textErase.SetActive(!buttonErase.GetComponent<ButtonMode>().selected);

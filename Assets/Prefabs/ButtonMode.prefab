@@ -199,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selected: 0
   cursorOffset: {x: 50, y: 120}
+  transparentMaterial: {fileID: 2100000, guid: a0d82cba71bcd344e8e333534af75444, type: 2}
 --- !u!114 &114369917126306646
 MonoBehaviour:
   m_ObjectHideFlags: 1
