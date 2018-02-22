@@ -12,6 +12,7 @@ Run the provided .exe file. Make sure the _data folder is next to the .exe file.
   - Improved sound balance
   - New sounds for pick up tool, erase, attack, wrong answer, enemy death, tower hit
   - Randomize pitch of sounds in battle
+  - Make tools transparent while holding them
 
 - Interim 2
   - Improved art and sound
