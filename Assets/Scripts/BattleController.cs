@@ -89,7 +89,6 @@ public class BattleController : MonoBehaviour {
 			gameOver = true;
 
 			SetText("Victory!", "Correct number revealed");
-			sudoku.gameObject.transform.parent.gameObject.SetActive(true);
 			WinImage.SetActive(true);
 			WinImage.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("game_numbers/" + sNum.ToString());
 			sudoku.SetCorrectNumber ();
