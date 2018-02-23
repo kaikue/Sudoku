@@ -11,8 +11,8 @@ public class Tower : Hurtable {
 	public Sprite hurt3Sprite;
 
 	private const int MAX_HEALTH = 4;
-	private const float SPAWN_TIME = 3.0f;
-	private const float ENEMY_DISTANCE = 2.0f;
+	private const float SPAWN_TIME = 5.0f;
+	private const float ENEMY_DISTANCE = 1.5f;
 
 	private BattleController bc;
 	

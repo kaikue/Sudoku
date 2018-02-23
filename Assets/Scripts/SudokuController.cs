@@ -249,7 +249,6 @@ public class SudokuController : MonoBehaviour {
 
 	private IEnumerator ZoomIn(GameObject battle)
 	{
-		battle.GetComponentInChildren<BattleController>().Instructions.SetActive(false);
 		battle.GetComponentInChildren<BattleController>().zooming = true;
 		selectedSquare.gameObject.SetActive(false);
 		canvas.SetActive(false);
@@ -268,7 +267,6 @@ public class SudokuController : MonoBehaviour {
 		cam.transform.position = cameraGoalPos;
 		cam.orthographicSize = cameraBattleSize;
 		battle.transform.localScale = new Vector3(1, 1, 1);
-		battle.GetComponentInChildren<BattleController>().Instructions.SetActive(true);
 		battle.GetComponentInChildren<BattleController>().zooming = false;
 	}
 

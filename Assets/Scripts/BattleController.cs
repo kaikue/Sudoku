@@ -17,7 +17,6 @@ public class BattleController : MonoBehaviour {
 	public GameObject Tower7;
 	public GameObject Tower8;
 	public GameObject Tower9;
-	public GameObject Instructions;
 
 	public bool zooming = false;
 
