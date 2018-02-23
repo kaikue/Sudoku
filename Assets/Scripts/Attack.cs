@@ -8,10 +8,11 @@ public class Attack : MonoBehaviour {
 	public Hurtable.Faction Faction;
 	public Vector3 Offset;
 	public Sprite flippedSprite;
+	public Sprite upSprite;
 
-	public void FlipSprite()
+	public void SetSprite(Sprite sp)
 	{
-		gameObject.GetComponent<SpriteRenderer>().sprite = flippedSprite;
+		gameObject.GetComponent<SpriteRenderer>().sprite = sp;
 	}
 
 	public void StartDelayDestroy(float lifespan)

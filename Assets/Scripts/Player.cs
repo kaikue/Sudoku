@@ -9,11 +9,14 @@ public class Player : Hurtable {
 	public AudioClip hurtClip;
 	public AudioClip enemyClip;
 	public AudioClip towerClip;
+	public Sprite walkSprite;
+	public Sprite attackSprite1;
+	public Sprite attackSprite2;
 
 	private const float SPEED = 3.0f;
-	private const float ATTACK_DISTANCE = 0.9f;
-	private const float ATTACK_OFFSET_X = -0.4f;
-	private const float ATTACK_OFFSET_Y = -0.6f;
+	private const float ATTACK_DISTANCE = 1.1f;
+	private const float ATTACK_OFFSET_X = -0.2f;
+	private const float ATTACK_OFFSET_Y = -0.2f;
 	private const int MAX_HEALTH = 3;
 
 	private BattleController bc;
@@ -90,6 +93,9 @@ public class Player : Hurtable {
 			facing = new Vector2(horiz < 0 ? -1 : 1, 0);
 		}
 
+		//float angle = GetAngle();
+		//sr.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		
 		rb.velocity = vel;
 
 		if (attackQueued)
@@ -102,10 +108,36 @@ public class Player : Hurtable {
 			}
 		}
 
-		if (MyAttack != null)
+		if (MyAttack == null)
 		{
+			sr.sprite = walkSprite;
+		}
+		else
+		{
+			sr.sprite = attackSprite1;
 			MyAttack.gameObject.transform.position = transform.position + MyAttack.Offset;
 		}
+	}
+
+	private float GetAngle()
+	{
+		if (facing.x == 1)
+		{
+			return 90;
+		}
+		if (facing.x == -1)
+		{
+			return 270;
+		}
+		if (facing.y == 1)
+		{
+			return 180;
+		}
+		if (facing.y == -1)
+		{
+			return 0;
+		}
+		return 0;
 	}
 
 	private void CreateAttack()
@@ -123,9 +155,13 @@ public class Player : Hurtable {
 		MyAttack = attack.GetComponent<Attack>();
 		MyAttack.Offset = attackOffset;
 		MyAttack.Faction = faction;
-		if (facing.x > 0 || facing.y > 0)
+		if (facing.y > 0)
 		{
-			MyAttack.FlipSprite();
+			MyAttack.SetSprite(MyAttack.upSprite);
+		}
+		else if (facing.x > 0)
+		{
+			MyAttack.SetSprite(MyAttack.flippedSprite);
 		}
 		MyAttack.StartDelayDestroy(0.15f);
 	}

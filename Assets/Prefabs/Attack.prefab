@@ -103,6 +103,7 @@ MonoBehaviour:
   Faction: 0
   Offset: {x: 0, y: 0, z: 0}
   flippedSprite: {fileID: 21300000, guid: 53a3bf3411113c348a8c722bd171818e, type: 3}
+  upSprite: {fileID: 21300000, guid: 57aea2dcf05887941aa5e922c56224de, type: 3}
 --- !u!212 &212125740487455142
 SpriteRenderer:
   m_ObjectHideFlags: 1

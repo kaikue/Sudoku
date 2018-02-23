@@ -34,8 +34,11 @@ public class Tower : Hurtable {
 		yield return new WaitForSeconds(startTime);
 		while (true)
 		{
-			SpawnEnemy();
-			yield return new WaitForSeconds(SPAWN_TIME);
+			if (!bc.zooming)
+			{
+				SpawnEnemy();
+				yield return new WaitForSeconds(SPAWN_TIME);
+			}
 		}
 	}
 
