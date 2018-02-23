@@ -173,7 +173,7 @@ public class SudokuController : MonoBehaviour {
 			RaycastHit2D hit = Physics2D.Raycast (new Vector2 (mousePosition.x, mousePosition.y), Vector2.zero);
 			if (hit != null && hit.collider != null) {
 				SquareController hoveredSquare = hit.collider.gameObject.GetComponent<SquareController> ();
-				if (!hoveredSquare.hint) {
+				if (hoveredSquare != null && !hoveredSquare.hint) {
 					SnapToSquare (hoveredSquare.gameObject);
 				}
 			} else {
