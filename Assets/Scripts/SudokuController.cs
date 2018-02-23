@@ -25,7 +25,6 @@ public class SudokuController : MonoBehaviour {
 	public Camera cam;
 	public float squareSeparationX;
 	public float squareSeparationY;
-	public AudioClip lossClip;
 
 	public SquareController selectedSquare;
 	public SudokuNumber selectedNumber;
@@ -95,8 +94,6 @@ public class SudokuController : MonoBehaviour {
 
 	public void SetLostBattle()
 	{
-		print ("lost");
-		gameObject.GetComponent<AudioSource>().PlayOneShot(lossClip);
 		selectedSquare.lostBattle = true;
 	}
 	

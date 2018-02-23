@@ -100,10 +100,12 @@ public class Player : Hurtable {
 
 		if (vert != 0)
 		{
+			bc.canSpawn = true;
 			facing = new Vector2(0, vert < 0 ? -1 : 1);
 		}
 		else if (horiz != 0)
 		{
+			bc.canSpawn = true;
 			facing = new Vector2(horiz < 0 ? -1 : 1, 0);
 		}
 
@@ -126,6 +128,7 @@ public class Player : Hurtable {
 			attackQueued = false;
 			if (MyAttack == null)
 			{
+				bc.canSpawn = true;
 				CreateAttack();
 			}
 		}
@@ -208,8 +211,11 @@ public class Player : Hurtable {
 	public override void Damage(int damage)
 	{
 		base.Damage(damage);
-		hearts[health].GetComponent<Image>().sprite = heartBlankSprite;
-		PlayAudioClip(hurtClip);
+		if (health >= 0)
+		{
+			hearts[health].GetComponent<Image>().sprite = heartBlankSprite;
+			PlayAudioClip(hurtClip);
+		}
 	}
 
 	protected override void Die()

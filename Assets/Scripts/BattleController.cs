@@ -17,8 +17,13 @@ public class BattleController : MonoBehaviour {
 	public GameObject Tower7;
 	public GameObject Tower8;
 	public GameObject Tower9;
+	public GameObject overlay;
+	public GameObject results1;
+	public GameObject results2;
+	public AudioClip lossClip;
 
 	public bool zooming = false;
+	public bool canSpawn = false;
 
 	private SudokuController sudoku;
 	private bool paused = false;
@@ -83,33 +88,56 @@ public class BattleController : MonoBehaviour {
 			if (gameOver) return;
 			gameOver = true;
 
-			gameObject.transform.parent.gameObject.GetComponentInChildren<AudioSource>().Stop();
+			SetText("Victory!", "Correct number revealed");
 			sudoku.gameObject.transform.parent.gameObject.SetActive(true);
-			print("won");
 			WinImage.SetActive(true);
 			WinImage.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("game_numbers/" + sNum.ToString());
 			sudoku.SetCorrectNumber ();
-			sudoku.ReturnToNormal(this);
+			StartCoroutine(Finish());
 		}
 		else
 		{
-			Lose();
+			SetText("Your battle was futile...", "(Did not have right possibility)");
+			SetLost();
 		}
 	}
 
 	public void Lose()
 	{
+		SetText("You have fallen...", "");
+		SetLost();
+	}
+
+	public void SetLost()
+	{
 		if (gameOver) return;
 		gameOver = true;
 
+		gameObject.GetComponent<AudioSource>().PlayOneShot(lossClip);
+		sudoku.SetLostBattle();
+		StartCoroutine(Finish());
+	}
+
+	public void SetText(string s1, string s2)
+	{
+		overlay.SetActive(true);
+		results1.GetComponent<Text>().text = s1;
+		results2.GetComponent<Text>().text = s2;
+	}
+
+	private IEnumerator Finish()
+	{
+
+		yield return new WaitForSeconds(4.0f);
+
 		gameObject.transform.parent.gameObject.GetComponentInChildren<AudioSource>().Stop();
+		overlay.SetActive(false);
+		sudoku.gameObject.transform.parent.gameObject.SetActive(true);
+		
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 		foreach (GameObject enemy in enemies) {
 			Destroy(enemy);
 		}
-		
-		sudoku.gameObject.transform.parent.gameObject.SetActive(true);
-		sudoku.SetLostBattle();
 		sudoku.ReturnToNormal(this);
 	}
 }

@@ -15,7 +15,10 @@ Run the provided .exe file. Make sure the _data folder is next to the .exe file.
   - Integrate instructions into interface
   - Changed battle artwork (player and enemies)
   - Improved battle UI
+    - Instruction text
+	- Health hearts
   - Make tools transparent over board
+  - Add message on finishing battle
 
 - Interim 2
   - Improved art and sound
