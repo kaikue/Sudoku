@@ -89,7 +89,7 @@ public class Player : Hurtable {
 		float horiz = Input.GetAxisRaw("Horizontal");
 		float vert = Input.GetAxisRaw("Vertical");
 
-		if (MyAttack != null || bc.zooming) //can't move while attacking
+		if (MyAttack != null || bc.zooming || bc.gameOver) //can't move while attacking or screen change
 		{
 			horiz = 0;
 			vert = 0;

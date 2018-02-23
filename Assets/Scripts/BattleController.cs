@@ -27,7 +27,7 @@ public class BattleController : MonoBehaviour {
 
 	private SudokuController sudoku;
 	private bool paused = false;
-	private bool gameOver = false;
+	public bool gameOver = false;
 	
 	public void InitializeGame(SquareController square, SudokuController sudoku)
 	{
