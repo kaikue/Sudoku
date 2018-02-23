@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : Hurtable {
 
@@ -12,10 +13,17 @@ public class Player : Hurtable {
 	public Sprite walkSprite;
 	public Sprite attackSprite1;
 	public Sprite attackSprite2;
+	public Sprite heartBlankSprite;
+
+	public GameObject heart1;
+	public GameObject heart2;
+	public GameObject heart3;
+	private GameObject[] hearts;
 
 	private const float SPEED = 3.0f;
-	private const float ATTACK_DISTANCE = 1.1f;
-	private const float ATTACK_OFFSET_X = -0.2f;
+	private const float ATTACK_DISTANCE_X = 1.3f;
+	private const float ATTACK_DISTANCE_Y = 0.9f;
+	private const float ATTACK_OFFSET_X = 0f;
 	private const float ATTACK_OFFSET_Y = -0.2f;
 	private const int MAX_HEALTH = 3;
 
@@ -24,6 +32,10 @@ public class Player : Hurtable {
 	private Attack MyAttack = null;
 	private bool attackQueued = false;
 	private Vector2 facing = new Vector2(0, -1);
+	private float baseScaleX;
+	private float baseScaleY;
+	private float baseScaleZ;
+
 
 	protected override void Start()
 	{
@@ -33,6 +45,10 @@ public class Player : Hurtable {
 		sr = GetComponent<SpriteRenderer>();
 		faction = Faction.GOOD;
 		health = MAX_HEALTH;
+		hearts = new GameObject[] { heart1, heart2, heart3 };
+		baseScaleX = gameObject.transform.localScale.x;
+		baseScaleY = gameObject.transform.localScale.y;
+		baseScaleZ = gameObject.transform.localScale.z;
 	}
 
 	void Update()
@@ -91,6 +107,15 @@ public class Player : Hurtable {
 			facing = new Vector2(horiz < 0 ? -1 : 1, 0);
 		}
 
+		if (horiz < 0)
+		{
+			gameObject.transform.localScale = new Vector3(baseScaleX, baseScaleY, baseScaleZ);
+		}
+		else if (horiz > 0)
+		{
+			gameObject.transform.localScale = new Vector3(-baseScaleX, baseScaleY, baseScaleZ);
+		}
+
 		//float angle = GetAngle();
 		//sr.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		
@@ -140,8 +165,8 @@ public class Player : Hurtable {
 	private void CreateAttack()
 	{
 		Vector3 attackOffset = facing.normalized;
-		attackOffset *= ATTACK_DISTANCE;
-		attackOffset += new Vector3(ATTACK_OFFSET_X, ATTACK_OFFSET_Y, 0);
+		attackOffset = new Vector3(attackOffset.x * ATTACK_DISTANCE_X + ATTACK_OFFSET_X,
+			attackOffset.y * ATTACK_DISTANCE_Y + ATTACK_OFFSET_Y, 0);
 
 		PlayAudioClip(attackClip);
 
@@ -183,6 +208,7 @@ public class Player : Hurtable {
 	public override void Damage(int damage)
 	{
 		base.Damage(damage);
+		hearts[health].GetComponent<Image>().sprite = heartBlankSprite;
 		PlayAudioClip(hurtClip);
 	}
 

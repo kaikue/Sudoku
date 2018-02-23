@@ -213,7 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NormalMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   HurtMaterial: {fileID: 2100000, guid: 2cf05aa2819ba4140ac6c11c54eb2c6c, type: 2}
-  faction: 0
+  faction: 1
 --- !u!114 &114662346897311748
 MonoBehaviour:
   m_ObjectHideFlags: 1

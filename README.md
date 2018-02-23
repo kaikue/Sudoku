@@ -14,6 +14,8 @@ Run the provided .exe file. Make sure the _data folder is next to the .exe file.
   - Randomize pitch of sounds in battle
   - Integrate instructions into interface
   - Changed battle artwork (player and enemies)
+  - Improved battle UI
+  - Make tools transparent over board
 
 - Interim 2
   - Improved art and sound
@@ -50,5 +52,6 @@ Other resources used:
   - Attack: https://freesound.org/people/InspectorJ/sounds/394418/
   - Enemy: https://freesound.org/people/Reitanna/sounds/241479/
   - Tower: https://freesound.org/people/Cheddababy/sounds/325909/
+- Hearts: http://www.drawinghowtodraw.com/stepbystepdrawinglessons/2010/01/drawing-hearts-how-to-draw-hearts-for-valentines-day/
 - Sudoku Puzzles: https://github.com/ralli/sudoku/blob/master/data/top1465.txt
 - Sudoku Solver: https://github.com/AChep/SudokuSolver/blob/master/sudoku.py
